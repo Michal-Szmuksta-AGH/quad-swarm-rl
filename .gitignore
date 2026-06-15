@@ -14,3 +14,6 @@ _results
 *.egg-info/
 train_dir/
 wandb/
+.vscode/
+cache/
+msc-thesis-quad-swarm-rl/
