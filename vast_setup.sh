@@ -25,12 +25,15 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r 
 
 # Env
 conda env list | awk '{print $1}' | grep -qx "$ENV_NAME" \
-  || conda create -y -n "$ENV_NAME" "python=$PY_VERSION"
+  || conda create -y -n "$ENV_NAME" "python=$PY_VERSION" pip
 conda activate "$ENV_NAME"
 
 # Use env binaries directly — vast.ai containers have system python on PATH
 # that can shadow the conda env's pip after activation.
 ENV_BIN="$CONDA_DIR/envs/$ENV_NAME/bin"
+
+# Some templates create envs without pip; ensure it's there.
+[ -x "$ENV_BIN/pip" ] || conda install -y -n "$ENV_NAME" pip
 
 # swarm_rl + deps
 "$ENV_BIN/pip" install --upgrade pip wheel setuptools
