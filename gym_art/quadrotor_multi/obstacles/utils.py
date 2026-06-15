@@ -2,8 +2,12 @@ import numpy as np
 from numba import njit
 
 @njit
-def get_surround_sdfs(quad_poses, obst_poses, quads_sdf_obs, obst_radius, resolution=0.1):
+def get_surround_sdfs(quad_poses, obst_poses, quads_sdf_obs, obst_radius, resolution=0.1,
+                      sensor_range=100.0):
     # Shape of quads_sdf_obs: (quad_num, 9)
+    # sensor_range: SDF values larger than this are clipped to sensor_range,
+    # simulating a finite-range sensor that returns its max range when nothing
+    # is detected within. Default 100.0 ≫ room diagonal → effectively unlimited.
 
     sdf_map = np.array([-1., -1., -1., 0., 0., 0., 1., 1., 1.])
     sdf_map *= resolution
@@ -22,7 +26,10 @@ def get_surround_sdfs(quad_poses, obst_poses, quads_sdf_obs, obst_radius, resolu
                         min_dist = dist
 
                 g_id = g_i * 3 + g_j
-                quads_sdf_obs[i, g_id] = min_dist - obst_radius
+                sdf_value = min_dist - obst_radius
+                if sdf_value > sensor_range:
+                    sdf_value = sensor_range
+                quads_sdf_obs[i, g_id] = sdf_value
 
     return quads_sdf_obs
 

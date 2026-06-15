@@ -5,12 +5,13 @@ from gym_art.quadrotor_multi.obstacles.utils import get_surround_sdfs, collision
 
 
 class MultiObstacles:
-    def __init__(self, obstacle_size=1.0, quad_radius=0.046):
+    def __init__(self, obstacle_size=1.0, quad_radius=0.046, sensor_range=100.0):
         self.size = obstacle_size
         self.obstacle_radius = obstacle_size / 2.0
         self.quad_radius = quad_radius
         self.pos_arr = []
         self.resolution = 0.1
+        self.sensor_range = sensor_range
 
     def reset(self, obs, quads_pos, pos_arr):
         self.pos_arr = copy.deepcopy(np.array(pos_arr))
@@ -18,7 +19,7 @@ class MultiObstacles:
         quads_sdf_obs = 100 * np.ones((len(quads_pos), 9))
         quads_sdf_obs = get_surround_sdfs(quad_poses=quads_pos[:, :2], obst_poses=self.pos_arr[:, :2],
                                           quads_sdf_obs=quads_sdf_obs, obst_radius=self.obstacle_radius,
-                                          resolution=self.resolution)
+                                          resolution=self.resolution, sensor_range=self.sensor_range)
 
         obs = np.concatenate((obs, quads_sdf_obs), axis=1)
 
@@ -28,7 +29,7 @@ class MultiObstacles:
         quads_sdf_obs = 100 * np.ones((len(quads_pos), 9))
         quads_sdf_obs = get_surround_sdfs(quad_poses=quads_pos[:, :2], obst_poses=self.pos_arr[:, :2],
                                           quads_sdf_obs=quads_sdf_obs, obst_radius=self.obstacle_radius,
-                                          resolution=self.resolution)
+                                          resolution=self.resolution, sensor_range=self.sensor_range)
 
         obs = np.concatenate((obs, quads_sdf_obs), axis=1)
 

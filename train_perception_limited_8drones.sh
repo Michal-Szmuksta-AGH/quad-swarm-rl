@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
-# Paper-aligned 8-drone obstacle baseline (Huang et al. ICRA 2024).
-# K=2 neighbors, no domain randomization, 1B env steps.
+# Paper baseline + SDF range cutoff via --quads_obst_sensor_range.
+# SDF values > SENSOR_RANGE are clipped to SENSOR_RANGE (simulates finite-range ToF).
 #
 # Usage:
-#   SEED=0    EXPERIMENT=paper_baseline_8drones_s0    bash train_paper_baseline_8drones.sh
-#   STEPS=200000000 bash train_paper_baseline_8drones.sh   # smoke test
+#   SENSOR_RANGE=1.0 SEED=0 bash train_perception_limited_8drones.sh
+#   STEPS=50000000 bash train_perception_limited_8drones.sh   # smoke test
 
 PYTHON=python
 STEPS=${STEPS:-1000000000}
-EXPERIMENT=${EXPERIMENT:-paper_baseline_8drones}
-NUM_WORKERS=${NUM_WORKERS:-96}
-SEED=${SEED:-1}
+SENSOR_RANGE=${SENSOR_RANGE:-1.0}
+SEED=${SEED:-0}
+NUM_WORKERS=${NUM_WORKERS:-84}
+EXPERIMENT=${EXPERIMENT:-perception_limited_r${SENSOR_RANGE}_8drones_s${SEED}}
 
 $PYTHON -m swarm_rl.train \
   --env=quadrotor_multi --algo=APPO --train_for_env_steps=$STEPS --use_rnn=False \
@@ -33,6 +34,7 @@ $PYTHON -m swarm_rl.train \
   --quads_collision_falloff_radius=4.0 --quads_collision_smooth_max_penalty=4.0 \
   --quads_use_obstacles=True --quads_obstacle_obs_type=octomap \
   --quads_obst_spawn_area 8 8 --quads_obst_density=0.2 --quads_obst_size=0.6 \
+  --quads_obst_sensor_range=$SENSOR_RANGE \
   --quads_obst_collision_reward=5.0 \
   --quads_domain_random=False \
   --quads_obst_density_random=False \

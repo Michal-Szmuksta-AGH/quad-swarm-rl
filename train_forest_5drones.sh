@@ -1,20 +1,13 @@
 #!/usr/bin/env bash
-# ---------------------------------------------------------------------------
-# Trening: rój 5 dronów, nawigacja przez las (walce)
-# Uruchomienie:  bash train_forest_5drones.sh
-# Monitoring:    tensorboard --logdir=train_dir
-# ---------------------------------------------------------------------------
-
-# === USTAWIENIA — edytuj tutaj ============================================
+# 5-drone forest training (lokalnie). tensorboard --logdir=train_dir
 PYTHON=/home/michal/miniconda3/envs/swarm-rl/bin/python
 EXPERIMENT=forest_5drones_baseline
-STEPS=300000000          # budzet krokow srodowiska. Smoke-test: 2000000
-NUM_WORKERS=12           # ~ liczba rdzeni CPU (dostroic 10-12)
-NUM_AGENTS=5             # liczba dronow w roju
-OBST_DENSITY=0.2         # gestosc lasu
-OBST_SIZE=0.6            # srednica walca [m] (mniejsza = cienszy pien)
-ANNEAL_COLLISION=100000000   # kary kolizji rosna od 0 do pelnej przez tyle krokow
-# ===========================================================================
+STEPS=300000000
+NUM_WORKERS=12
+NUM_AGENTS=5
+OBST_DENSITY=0.2
+OBST_SIZE=0.6
+ANNEAL_COLLISION=100000000
 
 $PYTHON -m swarm_rl.train \
   --env=quadrotor_multi --algo=APPO --train_for_env_steps=$STEPS --use_rnn=False \

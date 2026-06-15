@@ -70,6 +70,10 @@ def add_quadrotors_env_args(env, parser):
                    help='The minimum obstacle size when enabling domain randomization')
     p.add_argument('--quads_obst_size_max', default=0.6, type=float,
                    help='The maximum obstacle size when enabling domain randomization')
+    p.add_argument('--quads_obst_sensor_range', default=100.0, type=float,
+                   help='Max distance returned by the SDF obstacle sensor. '
+                        'Default 100.0 = effectively unlimited (matches paper baseline). '
+                        'Set to e.g. 1.0 for perception-limited training simulating a short-range ToF sensor.')
 
     # # Obstacle Encoder
     p.add_argument('--quads_obst_hidden_size', default=256, type=int, help='The hidden size for the obstacle encoder')
