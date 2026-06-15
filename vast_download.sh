@@ -10,7 +10,7 @@ fi
 
 REMOTE="$1"
 PORT="$2"
-REMOTE_PATH="${REMOTE_PATH:-~/quad-swarm-rl/train_dir}"
+REMOTE_PATH="${REMOTE_PATH:-/workspace/quad-swarm-rl/train_dir}"
 LOCAL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/train_dir"
 
 mkdir -p "$LOCAL_DIR"
