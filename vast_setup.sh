@@ -28,18 +28,22 @@ conda env list | awk '{print $1}' | grep -qx "$ENV_NAME" \
   || conda create -y -n "$ENV_NAME" "python=$PY_VERSION"
 conda activate "$ENV_NAME"
 
+# Use env binaries directly — vast.ai containers have system python on PATH
+# that can shadow the conda env's pip after activation.
+ENV_BIN="$CONDA_DIR/envs/$ENV_NAME/bin"
+
 # swarm_rl + deps
-pip install --upgrade pip wheel setuptools
-cd "$REPO_DIR" && pip install -e .
+"$ENV_BIN/pip" install --upgrade pip wheel setuptools
+cd "$REPO_DIR" && "$ENV_BIN/pip" install -e .
 
 # Replace torch with a wheel matching the actual GPU's CC (Blackwell needs cu128)
 TORCH_SPEC="${TORCH_VERSION:+torch==$TORCH_VERSION}"
 TORCH_SPEC="${TORCH_SPEC:-torch}"
-pip install --upgrade --force-reinstall "$TORCH_SPEC" \
+"$ENV_BIN/pip" install --upgrade --force-reinstall "$TORCH_SPEC" \
   --index-url "https://download.pytorch.org/whl/$CUDA_TAG"
 
 # Verify
-python - <<'PY'
+"$ENV_BIN/python" - <<'PY'
 import sys, torch
 print(f"python: {sys.version.split()[0]}, torch: {torch.__version__}, cuda: {torch.cuda.is_available()}")
 if torch.cuda.is_available():
