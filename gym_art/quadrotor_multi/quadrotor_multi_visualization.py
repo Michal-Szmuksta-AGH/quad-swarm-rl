@@ -119,10 +119,11 @@ class Quadrotor3DSceneMulti:
             quad_arm=None, models=None, walls_visible=True, resizable=True, goal_diameter=None,
             viewpoint='chase', obs_hw=None, room_dims=(10, 10, 10), num_agents=8, obstacles=None,
             render_speed=1.0, formation_size=-1.0, vis_vel_arrows=True, vis_acc_arrows=True, viz_traces=100, viz_trace_nth_step=1,
-            num_obstacles=0, scene_index=0
+            num_obstacles=0, scene_index=0, scenario_ref=None,
     ):
         self.pygl_window = __import__('pyglet.window', fromlist=['key'])
         self.keys = None  # keypress handler, initialized later
+        self.scenario_ref = scenario_ref
 
         if obs_hw is None:
             obs_hw = [64, 64]
@@ -500,6 +501,7 @@ class Quadrotor3DSceneMulti:
                 self.keys = self.pygl_window.key.KeyStateHandler()
                 self.window_target.window.push_handlers(self.keys)
                 self.window_target.window.on_key_release = self.window_on_key_release
+                self.window_target.window.on_key_press = self.on_key_press_waypoints
                 self._make_scene()
 
             self.window_smooth_change_view()
@@ -509,7 +511,7 @@ class Quadrotor3DSceneMulti:
             return None, first_spawn
         elif mode == 'rgb_array':
             if self.video_target is None:
-                self.video_target = r3d.FBOTarget(self.window_h, self.window_h)
+                self.video_target = r3d.FBOTarget(self.window_w, self.window_h)
                 self._make_scene()
             self.update_state(all_dynamics=all_dynamics, goals=goals, obstacles=obstacles, collisions=collisions)
             self.cam3p.look_at(*self.chase_cam.look_at())
@@ -608,3 +610,13 @@ class Quadrotor3DSceneMulti:
 
         self.keys = key.KeyStateHandler()
         self.window_target.window.push_handlers(self.keys)
+
+    def on_key_press_waypoints(self, symbol, modifiers):
+        """Edge-triggered handler: ENTER advances waypoint, R resets to first."""
+        if self.scenario_ref is None:
+            return
+        key = self.pygl_window.key
+        if symbol == key.ENTER and hasattr(self.scenario_ref, 'advance'):
+            self.scenario_ref.advance()
+        elif symbol == key.R and hasattr(self.scenario_ref, 'reset_to_first'):
+            self.scenario_ref.reset_to_first()

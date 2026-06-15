@@ -61,9 +61,12 @@ def get_display(spec):
 # TODO can we get some of this from Pyglet?
 class FBOTarget(object):
     def __init__(self, width, height):
-
-        shape = (width, height, 3)
-        self.shape = shape
+        self.width = width
+        self.height = height
+        # Numpy / OpenCV image convention: (rows, cols, channels) = (H, W, 3).
+        # Camera._matrix derives aspect ratio from self.shape; with this
+        # convention aspect = shape[1] / shape[0] = W / H.
+        self.shape = (height, width, 3)
 
         self.fbo = GLuint(0)
         glGenFramebuffers(1, ctypes.byref(self.fbo))
@@ -73,8 +76,7 @@ class FBOTarget(object):
         self.depth = GLuint(0)
         glGenRenderbuffers(1, ctypes.byref(self.depth))
         glBindRenderbuffer(GL_RENDERBUFFER, self.depth)
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, *shape)
-        # ??? (from songho.ca/opengl/gl_fbo.html)
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height)
         glBindRenderbuffer(GL_RENDERBUFFER, 0)
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
             GL_RENDERBUFFER, self.depth)
@@ -83,26 +85,25 @@ class FBOTarget(object):
         self.tex = GLuint(0)
         glGenTextures(1, ctypes.byref(self.tex))
         glBindTexture(GL_TEXTURE_2D, self.tex)
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, shape[0], shape[1], 0,
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0,
             GL_RGB, GL_UNSIGNED_BYTE, 0)
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
             GL_TEXTURE_2D, self.tex, 0)
 
-        # test - ok to comment out?
         draw_buffers = (GLenum * 1)(GL_COLOR_ATTACHMENT0)
         glDrawBuffers(1, draw_buffers)
         assert glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE
 
-        self.fb_array = np.zeros(shape, dtype=np.uint8)
+        self.fb_array = np.zeros(self.shape, dtype=np.uint8)
 
     def bind(self):
         glBindFramebuffer(GL_FRAMEBUFFER, self.fbo)
         draw_buffers = (GLenum * 1)(GL_COLOR_ATTACHMENT0)
         glDrawBuffers(1, draw_buffers)
-        glViewport(0, 0, *self.shape[:2])
+        glViewport(0, 0, self.width, self.height)
 
     def finish(self):
-        glReadPixels(0, 0, self.shape[1], self.shape[0],
+        glReadPixels(0, 0, self.width, self.height,
             GL_RGB, GL_UNSIGNED_BYTE, self.fb_array.ctypes.data)
 
     def read(self):
@@ -127,9 +128,10 @@ class WindowTarget(object):
             visible=True, vsync=False, config=config
         )
         self.window.on_close = self.close
-        self.shape = (width, height, 3)
+        # Numpy / OpenCV image convention: (rows, cols, channels) = (H, W, 3).
+        self.shape = (height, width, 3)
         def on_resize(w, h):
-            self.shape = (w, h, 3)
+            self.shape = (h, w, 3)
         if resizable:
             self.window.on_resize = on_resize
 
@@ -180,7 +182,8 @@ class Camera(object):
 
     # private
     def _matrix(self, shape):
-        aspect = float(shape[0]) / shape[1]
+        # shape is (H, W, 3) numpy convention; perspective aspect is W/H.
+        aspect = float(shape[1]) / shape[0]
         znear = 0.1
         zfar = 100.0
         glMatrixMode(GL_PROJECTION)
