@@ -19,6 +19,10 @@ if [ ! -d "$CONDA_DIR" ]; then
 fi
 source "$CONDA_DIR/etc/profile.d/conda.sh"
 
+# Accept anaconda channel ToS (required by conda >=24.9; no-op on older versions)
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main 2>/dev/null || true
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r 2>/dev/null || true
+
 # Env
 conda env list | awk '{print $1}' | grep -qx "$ENV_NAME" \
   || conda create -y -n "$ENV_NAME" "python=$PY_VERSION"
