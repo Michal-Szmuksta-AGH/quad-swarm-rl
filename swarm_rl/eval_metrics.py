@@ -185,6 +185,7 @@ def evaluate(cfg):
             "quads_obst_spawn_area": list(cfg.quads_obst_spawn_area),
             "quads_obst_density": cfg.quads_obst_density,
             "quads_obst_size": cfg.quads_obst_size,
+            "quads_obst_sensor_range": cfg.quads_obst_sensor_range,
             "quads_mode": cfg.quads_mode,
             "quads_episode_duration": cfg.quads_episode_duration,
             "quads_domain_random": cfg.quads_domain_random,

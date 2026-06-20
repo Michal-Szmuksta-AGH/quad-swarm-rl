@@ -43,6 +43,11 @@ def make_quadrotor_env_multi(cfg, render_mode=None, **kwargs):
         # Obstacle
         use_obstacles=cfg.quads_use_obstacles, obst_density=cfg.quads_obst_density, obst_size=cfg.quads_obst_size,
         obst_spawn_area=cfg.quads_obst_spawn_area, obst_sensor_range=cfg.quads_obst_sensor_range,
+        obst_obs_type=cfg.quads_obstacle_obs_type,
+        multiranger_max_range=cfg.quads_multiranger_max_range,
+        multiranger_noise_std=cfg.quads_multiranger_noise_std,
+        multiranger_fov_deg=cfg.quads_multiranger_fov_deg,
+        multiranger_num_rays=cfg.quads_multiranger_num_rays,
 
         # Aerodynamics
         use_downwash=cfg.quads_use_downwash,

@@ -54,7 +54,9 @@ def add_quadrotors_env_args(env, parser):
     # # Obstacle Features
     p.add_argument('--quads_use_obstacles', default=False, type=str2bool, help='Use obstacles or not')
     p.add_argument('--quads_obstacle_obs_type', default='none', type=str,
-                   choices=['none', 'octomap'], help='Choose what kind of obs to send to encoder.')
+                   choices=['none', 'octomap', 'multiranger'],
+                   help='Obstacle observation type: octomap = 3x3 SDF grid (9 floats), '
+                        'multiranger = 4 ToF ray distances (4 floats, simulates Bitcraze deck).')
     p.add_argument('--quads_obst_density', default=0.2, type=float, help='Obstacle density in the map')
     p.add_argument('--quads_obst_size', default=1.0, type=float, help='The radius of obstacles')
     p.add_argument('--quads_obst_spawn_area', nargs='+', default=[6.0, 6.0], type=float,
@@ -74,6 +76,19 @@ def add_quadrotors_env_args(env, parser):
                    help='Max distance returned by the SDF obstacle sensor. '
                         'Default 100.0 = effectively unlimited (matches paper baseline). '
                         'Set to e.g. 1.0 for perception-limited training simulating a short-range ToF sensor.')
+    p.add_argument('--quads_multiranger_max_range', default=4.0, type=float,
+                   help='Multiranger sensor max range in meters (VL53L1x datasheet = 4.0). '
+                        'Used only when quads_obstacle_obs_type=multiranger.')
+    p.add_argument('--quads_multiranger_noise_std', default=0.0, type=float,
+                   help='Gaussian noise sigma applied to Multiranger output (0.0 = none). '
+                        'VL53L1x datasheet suggests ~3% of range at 1m.')
+    p.add_argument('--quads_multiranger_fov_deg', default=27.0, type=float,
+                   help='Multiranger sensor FOV in degrees (VL53L1x datasheet = 27deg). '
+                        'Set lower for tighter cone; sensor reports MIN distance across the cone.')
+    p.add_argument('--quads_multiranger_num_rays', default=8, type=int,
+                   help='Rays per sensor sampling the FOV cone. 1 = axis only (fast, '
+                        'misses off-axis obstacles); 8 = good fidelity matching VL53L5CX horizontal '
+                        'resolution as used by LEARN (Chiu et al. 2025).')
 
     # # Obstacle Encoder
     p.add_argument('--quads_obst_hidden_size', default=256, type=int, help='The hidden size for the obstacle encoder')
