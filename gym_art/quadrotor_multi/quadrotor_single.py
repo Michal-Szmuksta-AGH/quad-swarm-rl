@@ -102,7 +102,8 @@ class QuadrotorSingle:
                  sim_steps=2, obs_repr="xyz_vxyz_R_omega", ep_time=7, room_dims=(10.0, 10.0, 10.0),
                  init_random_state=False, sense_noise=None, verbose=False, gravity=GRAV,
                  t2w_std=0.005, t2t_std=0.0005, excite=False, dynamics_simplification=False, use_numba=False,
-                 neighbor_obs_type='none', num_agents=1, num_use_neighbor_obs=0, use_obstacles=False):
+                 neighbor_obs_type='none', num_agents=1, num_use_neighbor_obs=0, use_obstacles=False,
+                 obstacle_obs_type='octomap'):
         np.seterr(under='ignore')
         """
         Args:
@@ -227,6 +228,7 @@ class QuadrotorSingle:
 
         # Obstacles info
         self.use_obstacles = use_obstacles
+        self.obstacle_obs_type = obstacle_obs_type
 
         # Make observation space
         self.observation_space = self.make_observation_space()
@@ -304,6 +306,7 @@ class QuadrotorSingle:
             "wall": [np.zeros(6), 5.0 * np.ones(6)],
             "floor": [np.zeros(1), self.room_box[1][2] * np.ones(1)],
             "octmap": [-10 * np.ones(9), 10 * np.ones(9)],
+            "multiranger": [np.zeros(4), 100.0 * np.ones(4)],
         }
         self.obs_comp_names = list(self.obs_space_low_high.keys())
         self.obs_comp_sizes = [self.obs_space_low_high[name][1].size for name in self.obs_comp_names]
@@ -313,7 +316,12 @@ class QuadrotorSingle:
             obs_comps = obs_comps + (['rxyz'] + ['rvxyz']) * self.num_use_neighbor_obs
 
         if self.use_obstacles:
-            obs_comps = obs_comps + ["octmap"]
+            # Map obstacle obs_type → corresponding obs_space key
+            obstacle_obs_key = {
+                'octomap': 'octmap',
+                'multiranger': 'multiranger',
+            }.get(self.obstacle_obs_type, 'octmap')
+            obs_comps = obs_comps + [obstacle_obs_key]
 
         print("Observation components:", obs_comps)
         obs_low, obs_high = [], []
