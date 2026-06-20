@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
 # Bootstrap vast.ai instance for quad-swarm-rl. Run from inside the cloned repo.
+# Reuses any conda already on the template; installs miniconda only if none.
 # Override CUDA wheel with: CUDA_TAG=cu126 bash vast_setup.sh
 set -e
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONDA_DIR="$HOME/miniconda3"
 ENV_NAME="swarm-rl"
 PY_VERSION="3.11.10"
 CUDA_TAG="${CUDA_TAG:-cu128}"
 TORCH_VERSION="${TORCH_VERSION:-}"
 
-# Miniconda
-if [ ! -d "$CONDA_DIR" ]; then
+# Use existing conda if the template already has one (common on vast.ai PyTorch
+# templates). Otherwise install miniconda to ~/miniconda3.
+if command -v conda >/dev/null 2>&1; then
+  CONDA_DIR="$(conda info --base)"
+  echo "Using existing conda: $CONDA_DIR"
+else
+  CONDA_DIR="$HOME/miniconda3"
+  echo "Installing miniconda to: $CONDA_DIR"
   TMP_INSTALLER=$(mktemp /tmp/miniconda-XXXX.sh)
   wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O "$TMP_INSTALLER"
   bash "$TMP_INSTALLER" -b -p "$CONDA_DIR"
@@ -19,34 +25,28 @@ if [ ! -d "$CONDA_DIR" ]; then
 fi
 source "$CONDA_DIR/etc/profile.d/conda.sh"
 
-# Accept anaconda channel ToS (required by conda >=24.9; no-op on older versions)
+# Accept anaconda channel ToS (conda >=24.9; no-op on older versions)
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main 2>/dev/null || true
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r 2>/dev/null || true
 
-# Env
+# Env (with pip explicitly to avoid templates that omit it)
 conda env list | awk '{print $1}' | grep -qx "$ENV_NAME" \
   || conda create -y -n "$ENV_NAME" "python=$PY_VERSION" pip
 conda activate "$ENV_NAME"
 
-# Use env binaries directly — vast.ai containers have system python on PATH
-# that can shadow the conda env's pip after activation.
-ENV_BIN="$CONDA_DIR/envs/$ENV_NAME/bin"
-
-# Some templates create envs without pip; ensure it's there.
-[ -x "$ENV_BIN/pip" ] || conda install -y -n "$ENV_NAME" pip
-
-# swarm_rl + deps
-"$ENV_BIN/pip" install --upgrade pip wheel setuptools
-cd "$REPO_DIR" && "$ENV_BIN/pip" install -e .
+# Use `python -m pip` after activate — avoids PATH ambiguity between system pip
+# and env pip that can happen on vast.ai containers.
+python -m pip install --upgrade pip wheel setuptools
+cd "$REPO_DIR" && python -m pip install -e .
 
 # Replace torch with a wheel matching the actual GPU's CC (Blackwell needs cu128)
 TORCH_SPEC="${TORCH_VERSION:+torch==$TORCH_VERSION}"
 TORCH_SPEC="${TORCH_SPEC:-torch}"
-"$ENV_BIN/pip" install --upgrade --force-reinstall "$TORCH_SPEC" \
+python -m pip install --upgrade --force-reinstall "$TORCH_SPEC" \
   --index-url "https://download.pytorch.org/whl/$CUDA_TAG"
 
 # Verify
-"$ENV_BIN/python" - <<'PY'
+python - <<'PY'
 import sys, torch
 print(f"python: {sys.version.split()[0]}, torch: {torch.__version__}, cuda: {torch.cuda.is_available()}")
 if torch.cuda.is_available():
