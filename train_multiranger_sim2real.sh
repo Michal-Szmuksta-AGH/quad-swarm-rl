@@ -1,21 +1,22 @@
 #!/usr/bin/env bash
-# Single-drone Multiranger with domain randomization — kandydat na deployment.
-# Kluczowe różnice vs train_multiranger_8drones.sh:
-#   - num_agents=1, neighbor_visible_num=0 (nikogo w środowisku)
-#   - domain_random=True (obstacle density/size zmienne)
-#   - multiranger_noise_std=0.03 (sensor noise from VL53L1x datasheet)
+# Multi-drone Multiranger z DR + sensor noise — kandydat na deployment.
+# Semantyka 8-drone (tested config, unika single-drone Sample Factory buga
+# z pustym neighbor encoderem), ale z domain randomization dla sim2real.
+#
+# Na deployu (single drone): neighbor obs = zeros lub dummy values w firmware,
+# w treningu drony spread out też widziały bliskie-do-zerowych neighbor obs.
 #
 # Usage:
-#   SEED=0 bash train_multiranger_sim2real_single.sh
-#   STEPS=50000000 bash train_multiranger_sim2real_single.sh   # smoke test
+#   SEED=0 bash train_multiranger_sim2real.sh
+#   STEPS=50000000 bash train_multiranger_sim2real.sh   # smoke test
 
 PYTHON=python
 STEPS=${STEPS:-1000000000}
 SEED=${SEED:-0}
-NUM_WORKERS=${NUM_WORKERS:-84}
+NUM_WORKERS=${NUM_WORKERS:-60}
 MAX_RANGE=${MAX_RANGE:-4.0}
 NOISE_STD=${NOISE_STD:-0.03}
-EXPERIMENT=${EXPERIMENT:-multiranger_sim2real_single_r${MAX_RANGE}_s${SEED}}
+EXPERIMENT=${EXPERIMENT:-multiranger_sim2real_r${MAX_RANGE}_s${SEED}}
 
 $PYTHON -m swarm_rl.train \
   --env=quadrotor_multi --algo=APPO --train_for_env_steps=$STEPS --use_rnn=False \
@@ -28,11 +29,11 @@ $PYTHON -m swarm_rl.train \
   --quads_use_numba=True --save_milestones_sec=1800 \
   --seed=$SEED \
   \
-  --quads_mode=mix --quads_episode_duration=15.0 --quads_num_agents=1 \
+  --quads_mode=mix --quads_episode_duration=15.0 --quads_num_agents=8 \
   --quads_obs_repr=xyz_vxyz_R_omega_floor --quads_encoder_type=attention \
   --quads_neighbor_encoder_type=no_encoder --quads_neighbor_hidden_size=256 \
-  --quads_neighbor_obs_type=none \
-  --quads_neighbor_visible_num=0 \
+  --quads_neighbor_obs_type=pos_vel \
+  --quads_neighbor_visible_num=2 \
   \
   --quads_collision_reward=5.0 --quads_collision_hitbox_radius=2.0 \
   --quads_collision_falloff_radius=4.0 --quads_collision_smooth_max_penalty=4.0 \
