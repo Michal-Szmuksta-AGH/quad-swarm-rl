@@ -6,7 +6,7 @@ from pathlib import Path
 
 import torch
 import torch.nn as nn
-from attrdict import AttrDict
+from sample_factory.utils.attr_dict import AttrDict
 from typing import List
 
 from sample_factory.model.actor_critic import create_actor_critic
@@ -62,8 +62,19 @@ def load_sf_model(model_dir: Path, model_type: str):
         Load a trained SF pytorch model
     """
     assert model_dir.exists(), f'Path {str(model_dir)} is not a valid path'
-    # Load hyper-parameters
-    cfg_path = model_dir.joinpath('config.json')
+    # Handle both layouts:
+    #  (old) model_dir = experiment root with cfg.json and *.pth all inline
+    #  (new) model_dir = experiment root, config.json in root, *.pth in checkpoint_p0/
+    if (model_dir / 'config.json').exists():
+        cfg_path = model_dir / 'config.json'
+    elif (model_dir.parent / 'config.json').exists():
+        # user passed the checkpoint_p0 subdir directly — walk up one level
+        cfg_path = model_dir.parent / 'config.json'
+    else:
+        raise FileNotFoundError(
+            f'No config.json in {model_dir} or {model_dir.parent}. '
+            f'Point --torch_model_dir at the experiment root (e.g. train_dir/EXPERIMENT_NAME).'
+        )
     with open(cfg_path, 'r') as f:
         args = json.load(f)
     args = AttrDict(args)
@@ -87,7 +98,21 @@ def load_sf_model(model_dir: Path, model_type: str):
     # spawn a dummy env, so we can get the obs and action space info
     env = make_quadrotor_env_multi(args)
     model = create_actor_critic(args, env.observation_space, env.action_space)
-    model_path = list(model_dir.glob('*.pth'))[0]
+    # Find checkpoint: prefer best_*.pth, fall back to checkpoint_*.pth.
+    # Search current dir + checkpoint_p0/ subdir (new SF layout).
+    experiment_root = cfg_path.parent
+    search_dirs = [experiment_root / 'checkpoint_p0', experiment_root, model_dir]
+    ckpt_candidates = []
+    for d in search_dirs:
+        if d.exists():
+            ckpt_candidates.extend(sorted(d.glob('best_*.pth')))
+            ckpt_candidates.extend(sorted(d.glob('checkpoint_*.pth')))
+    if not ckpt_candidates:
+        raise FileNotFoundError(
+            f'No .pth checkpoints found in {search_dirs}. Check --torch_model_dir path.'
+        )
+    model_path = ckpt_candidates[0]  # best_*.pth wins if present
+    print(f'Loading checkpoint: {model_path}')
     model.load_state_dict(torch.load(model_path)['model'])
 
     return model

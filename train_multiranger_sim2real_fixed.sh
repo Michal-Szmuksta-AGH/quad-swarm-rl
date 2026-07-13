@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 # Multi-drone Multiranger z DR + sensor noise — kandydat na deployment.
-# Semantyka 8-drone (tested config, unika single-drone Sample Factory buga
-# z pustym neighbor encoderem), ale z domain randomization dla sim2real.
+# UŻYWA MNIEJSZEJ ARCHITEKTURY (QuadSingleHeadAttentionEncoder_Sim2Real):
+# single-head attention + 1-layer encoders, ~4× mniejsza od pełnego modelu.
+# Dopasowana do sim2real toolingu i ograniczeń pamięci Crazyflie 2.1 (192 KB RAM).
 #
-# Na deployu (single drone): neighbor obs = zeros lub dummy values w firmware,
-# w treningu drony spread out też widziały bliskie-do-zerowych neighbor obs.
+# Kluczowa flaga: --quads_sim2real=True aktywuje mniejszą architekturę.
+# Bez niej sim2real.py NIE załaduje checkpointu (size mismatch).
+#
+# Na deployu (single drone): neighbor obs = zeros lub dummy values w firmware.
 #
 # Usage:
 #   SEED=0 bash train_multiranger_sim2real.sh
@@ -31,6 +34,7 @@ $PYTHON -m swarm_rl.train \
   \
   --quads_mode=mix --quads_episode_duration=15.0 --quads_num_agents=8 \
   --quads_obs_repr=xyz_vxyz_R_omega_floor --quads_encoder_type=attention \
+  --quads_sim2real=True \
   --quads_neighbor_encoder_type=no_encoder --quads_neighbor_hidden_size=256 \
   --quads_neighbor_obs_type=pos_vel \
   --quads_neighbor_visible_num=2 \
