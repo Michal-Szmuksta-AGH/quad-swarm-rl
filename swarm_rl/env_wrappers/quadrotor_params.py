@@ -89,6 +89,31 @@ def add_quadrotors_env_args(env, parser):
                    help='Rays per sensor sampling the FOV cone. 1 = axis only (fast, '
                         'misses off-axis obstacles); 8 = good fidelity matching VL53L5CX horizontal '
                         'resolution as used by LEARN (Chiu et al. 2025).')
+    p.add_argument('--quads_topology_seed', default=-1, type=int,
+                   help='Base seed dla generacji topologii przeszkod. -1 (default) = losowe '
+                        '(globalny np.random state, standardowe dla treningu). >= 0 = '
+                        'deterministic sekwencja seedow (base + episode_idx). Uzywaj w '
+                        'eval dla fair comparison miedzy modelami — wszystkie modele dostana '
+                        'ten sam zestaw topologii do testowania.')
+    p.add_argument('--quads_obst_topology', default='grid', type=str,
+                   choices=['grid', 'poisson', 'cluster', 'building', 'mix'],
+                   help='Obstacle spatial distribution: grid = paper baseline (regular), '
+                        'poisson = uniform random with min spacing, '
+                        'cluster = K gaussian groups, '
+                        'building = BSP-based multi-room building interior with walls at '
+                        'arbitrary angles (not only 90 deg) and doors between rooms. '
+                        'mix = losuj per epizod z --quads_topology_mix_names (default: uniform '
+                        'across grid/poisson/cluster/building). Uzywaj dla curriculum/uniform '
+                        'training na wielu topologiach jednoczesnie.')
+    p.add_argument('--quads_topology_mix_names', default='grid,poisson,cluster,building', type=str,
+                   help='Comma-separated list topology names do losowania gdy '
+                        '--quads_obst_topology=mix. Default = wszystkie 4 topologie '
+                        '(uniform 25/25/25/25 gdy prawdopodobienstwa niepodane).')
+    p.add_argument('--quads_topology_mix_probs', default='', type=str,
+                   help='Comma-separated list probability weights (float) dla wyboru topologii '
+                        'w mode mix. Musi miec te sama dlugosc co --quads_topology_mix_names. '
+                        'Puste (default) = uniform. Wagi sa normalizowane. '
+                        'Przyklad: "1,1,1,3" da 3x wiecej building niz reszta.')
 
     # # Obstacle Encoder
     p.add_argument('--quads_obst_hidden_size', default=256, type=int, help='The hidden size for the obstacle encoder')

@@ -12,6 +12,7 @@ from gym_art.quadrotor_multi.collisions.quadrotors import calculate_collision_ma
     calculate_drone_proximity_penalties, perform_collision_between_drones
 from gym_art.quadrotor_multi.collisions.room import perform_collision_with_wall, perform_collision_with_ceiling
 from gym_art.quadrotor_multi.obstacles.utils import get_cell_centers
+from gym_art.quadrotor_multi.topology.generators import generate_topology
 from gym_art.quadrotor_multi.quad_utils import QUADS_OBS_REPR, QUADS_NEIGHBOR_OBS_TYPE
 
 from gym_art.quadrotor_multi.obstacles.obstacles import MultiObstacles
@@ -28,7 +29,7 @@ class QuadrotorEnvMulti(gym.Env):
                  # Obstacle
                  use_obstacles, obst_density, obst_size, obst_spawn_area, obst_sensor_range,
                  obst_obs_type, multiranger_max_range, multiranger_noise_std,
-                 multiranger_fov_deg, multiranger_num_rays,
+                 multiranger_fov_deg, multiranger_num_rays, obst_topology,
 
                  # Aerodynamics, Numba Speed Up, Scenarios, Room, Replay Buffer, Rendering
                  use_downwash, use_numba, quads_mode, room_dims, use_replay_buffer, quads_view_mode,
@@ -39,7 +40,12 @@ class QuadrotorEnvMulti(gym.Env):
                  dynamics_randomize_every, dynamics_change, dyn_sampler_1,
                  sense_noise, init_random_state,
                  # Rendering
-                 render_mode='human'
+                 render_mode='human',
+                 # Fixed-seed topology gen (fair-comparison eval); default -1 = losowe (training)
+                 obst_topology_seed=-1,
+                 # Mix mode: lista nazw topologii do losowania (comma-string), i wagi (comma-string).
+                 obst_topology_mix_names='grid,poisson,cluster,building',
+                 obst_topology_mix_probs='',
                  ):
         super().__init__()
 
@@ -136,6 +142,30 @@ class QuadrotorEnvMulti(gym.Env):
             self.multiranger_noise_std = multiranger_noise_std
             self.multiranger_fov_deg = multiranger_fov_deg
             self.multiranger_num_rays = multiranger_num_rays
+            self.obst_topology = obst_topology
+            # Fixed-seed topology generation (fair comparison miedzy modelami w eval).
+            # -1 = losowe (globalny np.random state, standardowe dla treningu).
+            # >= 0 = deterministic sekwencja: seed = obst_topology_seed + reset_counter.
+            self.obst_topology_seed = obst_topology_seed
+            self._topology_reset_counter = 0
+
+            # Mix mode: parse comma-list names + optional weights
+            self.obst_topology_mix_names = [
+                n.strip() for n in obst_topology_mix_names.split(',') if n.strip()
+            ]
+            if obst_topology_mix_probs.strip():
+                probs = np.array([float(p) for p in obst_topology_mix_probs.split(',')],
+                                  dtype=np.float64)
+                assert len(probs) == len(self.obst_topology_mix_names), \
+                    (f'topology_mix_probs len={len(probs)} != mix_names len='
+                     f'{len(self.obst_topology_mix_names)}')
+                self.obst_topology_mix_probs = probs / probs.sum()  # normalize
+            else:
+                self.obst_topology_mix_probs = None  # uniform
+            # Stats z ostatniej generacji topologii — zbierane w env reset,
+            # dodawane do info['episode_extra_stats'] na koncu epizodu.
+            self._last_topology_stats = {'attempts': 0, 'fallback': 0}
+            self._last_chosen_topology = self.obst_topology  # dla mix mode tracking
 
             # Log more info
             self.distance_to_goal_3_5 = 0
@@ -310,26 +340,40 @@ class QuadrotorEnvMulti(gym.Env):
         return floor_crash_list, wall_crash_list, ceiling_crash_list
 
     def obst_generation_given_density(self, grid_size=1.0):
-        obst_area_length, obst_area_width = int(self.obst_spawn_area[0]), int(self.obst_spawn_area[1])
-        num_room_grids = obst_area_length * obst_area_width
+        """Dispatch to selected topology generator (default: grid — paper baseline).
 
-        cell_centers = get_cell_centers(obst_area_length=obst_area_length, obst_area_width=obst_area_width,
-                                        grid_size=grid_size)
+        Zbiera retry stats (attempts, fallback) do self._last_topology_stats.
+        Sample Factory bierze je do episode_extra_stats na koncu epizodu ->
+        tensorboard, bez console spam.
+        """
+        if self.obst_topology_seed >= 0:
+            rng = np.random.RandomState(
+                self.obst_topology_seed + self._topology_reset_counter)
+            self._topology_reset_counter += 1
+        else:
+            rng = None  # global np.random (training default)
 
-        room_map = [i for i in range(0, num_room_grids)]
+        # Mix mode: losuj rzeczywista topologie z puli (uniform lub weighted).
+        # Uzywamy tego samego rng zeby zachowac reproducibility w eval fixed-seed.
+        if self.obst_topology == 'mix':
+            picker = rng if rng is not None else np.random
+            chosen_topology = str(picker.choice(
+                self.obst_topology_mix_names, p=self.obst_topology_mix_probs))
+        else:
+            chosen_topology = self.obst_topology
+        self._last_chosen_topology = chosen_topology  # dla TB stats
 
-        obst_index = np.random.choice(a=room_map, size=int(num_room_grids * self.obst_density), replace=False)
-
-        obst_pos_arr = []
-        # 0: No Obst, 1: Obst
-        obst_map = np.zeros([obst_area_length, obst_area_width])
-        for obst_id in obst_index:
-            rid, cid = obst_id // obst_area_width, obst_id - (obst_id // obst_area_width) * obst_area_width
-            obst_map[rid, cid] = 1
-            obst_item = list(cell_centers[rid + int(obst_area_length / grid_size) * cid])
-            obst_item.append(self.room_dims[2] / 2.)
-            obst_pos_arr.append(obst_item)
-
+        obst_map, obst_pos_arr, cell_centers, stats = generate_topology(
+            topology_name=chosen_topology,
+            spawn_area=self.obst_spawn_area,
+            density=self.obst_density,
+            obst_size=self.obst_size,
+            room_height=self.room_dims[2],
+            grid_size=grid_size,
+            rng=rng,
+            return_stats=True,
+        )
+        self._last_topology_stats = stats
         return obst_map, obst_pos_arr, cell_centers
 
     def init_scene_multi(self):
@@ -696,6 +740,27 @@ class QuadrotorEnvMulti(gym.Env):
                             self.distance_to_goal_5
                         infos[i]['episode_extra_stats'][f'{scenario_name}/num_collisions_obst_quad_5'] = \
                             self.distance_to_goal_5
+
+                        # Topology retry stats — mean across episodes daje TB scalar
+                        # 'topology/retries' — srednia liczba prob generacji (>1 = jakies rejects)
+                        # 'topology/fallback' — fraction epizodow ktore hit max_retries (bad sign jesli >0.05)
+                        # 'topology/retries_<name>' — per topology (przydatne przy curriculum training)
+                        infos[i]['episode_extra_stats']['topology/retries'] = \
+                            self._last_topology_stats.get('attempts', 0)
+                        infos[i]['episode_extra_stats']['topology/fallback'] = \
+                            self._last_topology_stats.get('fallback', 0)
+                        infos[i]['episode_extra_stats'][
+                            f'topology/retries_{self.obst_topology}'] = \
+                            self._last_topology_stats.get('attempts', 0)
+                        # W mix mode dodatkowo raportujemy WYBRANA topologie
+                        # (per-topology retry + count -> weryfikacja rozkladu na TB)
+                        if self.obst_topology == 'mix':
+                            chosen = getattr(self, '_last_chosen_topology', 'unknown')
+                            infos[i]['episode_extra_stats'][
+                                f'topology_mix/chosen_{chosen}'] = 1.0
+                            infos[i]['episode_extra_stats'][
+                                f'topology_mix/retries_{chosen}'] = \
+                                self._last_topology_stats.get('attempts', 0)
 
             if not self.saved_in_replay_buffer:
                 # agent_success_rate: base_success_rate, based on per agent

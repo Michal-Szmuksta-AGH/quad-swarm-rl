@@ -48,6 +48,10 @@ def make_quadrotor_env_multi(cfg, render_mode=None, **kwargs):
         multiranger_noise_std=cfg.quads_multiranger_noise_std,
         multiranger_fov_deg=cfg.quads_multiranger_fov_deg,
         multiranger_num_rays=cfg.quads_multiranger_num_rays,
+        obst_topology=cfg.quads_obst_topology,
+        obst_topology_seed=cfg.quads_topology_seed,
+        obst_topology_mix_names=cfg.quads_topology_mix_names,
+        obst_topology_mix_probs=cfg.quads_topology_mix_probs,
 
         # Aerodynamics
         use_downwash=cfg.quads_use_downwash,

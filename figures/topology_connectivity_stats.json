@@ -1,0 +1,170 @@
+{
+  "grid": {
+    "0.1": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 1.06,
+      "std_attempts": 0.29393876913398137,
+      "max_attempts": 3,
+      "rejection_rate_pct": 5.660377358490567,
+      "fallback_rate_pct": 0.0,
+      "first_try_success_rate_pct": 95.5
+    },
+    "0.2": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 1.45,
+      "std_attempts": 0.746659226153404,
+      "max_attempts": 4,
+      "rejection_rate_pct": 31.03448275862069,
+      "fallback_rate_pct": 0.0,
+      "first_try_success_rate_pct": 67.0
+    },
+    "0.3": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 4.77,
+      "std_attempts": 3.088219551780605,
+      "max_attempts": 10,
+      "rejection_rate_pct": 79.03563941299791,
+      "fallback_rate_pct": 13.5,
+      "first_try_success_rate_pct": 16.5
+    },
+    "0.4": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 9.16,
+      "std_attempts": 2.203270296627266,
+      "max_attempts": 10,
+      "rejection_rate_pct": 89.08296943231441,
+      "fallback_rate_pct": 84.0,
+      "first_try_success_rate_pct": 2.5
+    }
+  },
+  "poisson": {
+    "0.1": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 1.035,
+      "std_attempts": 0.1837797594948911,
+      "max_attempts": 2,
+      "rejection_rate_pct": 3.3816425120772946,
+      "fallback_rate_pct": 0.0,
+      "first_try_success_rate_pct": 96.5
+    },
+    "0.2": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 1.475,
+      "std_attempts": 0.7677076266392043,
+      "max_attempts": 5,
+      "rejection_rate_pct": 32.20338983050847,
+      "fallback_rate_pct": 0.0,
+      "first_try_success_rate_pct": 65.5
+    },
+    "0.3": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 4.52,
+      "std_attempts": 2.983219737129667,
+      "max_attempts": 10,
+      "rejection_rate_pct": 77.87610619469027,
+      "fallback_rate_pct": 9.5,
+      "first_try_success_rate_pct": 17.0
+    },
+    "0.4": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 8.78,
+      "std_attempts": 2.638484413446477,
+      "max_attempts": 10,
+      "rejection_rate_pct": 88.61047835990888,
+      "fallback_rate_pct": 78.5,
+      "first_try_success_rate_pct": 4.0
+    }
+  },
+  "cluster": {
+    "0.1": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 1.02,
+      "std_attempts": 0.13999999999999999,
+      "max_attempts": 2,
+      "rejection_rate_pct": 1.9607843137254901,
+      "fallback_rate_pct": 0.0,
+      "first_try_success_rate_pct": 98.0
+    },
+    "0.2": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 1.655,
+      "std_attempts": 1.0798032228142311,
+      "max_attempts": 8,
+      "rejection_rate_pct": 39.577039274924466,
+      "fallback_rate_pct": 0.0,
+      "first_try_success_rate_pct": 62.0
+    },
+    "0.3": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 5.965,
+      "std_attempts": 3.564235542160479,
+      "max_attempts": 10,
+      "rejection_rate_pct": 83.23554065381391,
+      "fallback_rate_pct": 31.5,
+      "first_try_success_rate_pct": 13.0
+    },
+    "0.4": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 9.09,
+      "std_attempts": 2.35199914965971,
+      "max_attempts": 10,
+      "rejection_rate_pct": 88.998899889989,
+      "fallback_rate_pct": 82.0,
+      "first_try_success_rate_pct": 2.5
+    }
+  },
+  "building": {
+    "0.1": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 1.08,
+      "std_attempts": 0.2891366458960192,
+      "max_attempts": 3,
+      "rejection_rate_pct": 7.4074074074074066,
+      "fallback_rate_pct": 0.0,
+      "first_try_success_rate_pct": 92.5
+    },
+    "0.2": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 2.94,
+      "std_attempts": 2.1157504578754085,
+      "max_attempts": 10,
+      "rejection_rate_pct": 65.98639455782312,
+      "fallback_rate_pct": 1.5,
+      "first_try_success_rate_pct": 30.5
+    },
+    "0.3": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 2.94,
+      "std_attempts": 2.1157504578754085,
+      "max_attempts": 10,
+      "rejection_rate_pct": 65.98639455782312,
+      "fallback_rate_pct": 1.5,
+      "first_try_success_rate_pct": 30.5
+    },
+    "0.4": {
+      "n_samples": 200,
+      "max_retries": 10,
+      "mean_attempts": 7.575,
+      "std_attempts": 3.2778613454507193,
+      "max_attempts": 10,
+      "rejection_rate_pct": 86.79867986798679,
+      "fallback_rate_pct": 55.50000000000001,
+      "first_try_success_rate_pct": 7.000000000000001
+    }
+  }
+}

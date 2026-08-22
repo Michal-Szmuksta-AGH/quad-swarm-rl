@@ -59,22 +59,29 @@ class Scenario_o_base(QuadrotorScenario):
                 x, y = self.free_space[idx][0], self.free_space[idx][1]
                 surroundings_free = self.check_surroundings(x, y)
 
-        width = self.obstacle_map.shape[0]
-        index = x + (width * y)
-        pos_x, pos_y = self.cell_centers[index]
+        # Bezposredni mapping (rid, cid) -> world coords. Poprzednia formula
+        # index = x + W*y + cell_centers[index] MIALA BUG: get_cell_centers
+        # iteruje inner-loop w reversed order (j from W-1 downto 0), wiec
+        # cell_centers[rid + W*cid] NIE odpowiadalo obst_map[rid, cid].
+        # Rezultat: drony spawnowane w cells zupelnie innych niz "free_space",
+        # czesto NA obstacle w topologiach o zorganizowanej strukturze (walls).
+        L, W = self.obstacle_map.shape
+        pos_x = x + 0.5 - L // 2
+        pos_y = y + 0.5 - W // 2
         z_list_start = np.random.uniform(low=0.75, high=3.0)
-        # xy_noise = np.random.uniform(low=-0.2, high=0.2, size=2)
         return np.array([pos_x, pos_y, z_list_start])
 
     def generate_pos_obst_map_2(self, num_agents):
         ids = np.random.choice(range(len(self.free_space)), num_agents, replace=False)
 
         generated_points = []
+        L, W = self.obstacle_map.shape
         for idx in ids:
             x, y = self.free_space[idx][0], self.free_space[idx][1]
-            width = self.obstacle_map.shape[0]
-            index = x + (width * y)
-            pos_x, pos_y = self.cell_centers[index]
+            # Bezposredni mapping (rid, cid) -> world (patrz komentarz w
+            # generate_pos_obst_map — fix indexowego bug'a Huang framework)
+            pos_x = x + 0.5 - L // 2
+            pos_y = y + 0.5 - W // 2
             z_list_start = np.random.uniform(low=1.0, high=3.0)
             generated_points.append(np.array([pos_x, pos_y, z_list_start]))
 
@@ -146,8 +153,11 @@ class Scenario_o_base(QuadrotorScenario):
                         max_size = dp[i][j]
                         center_x = i - (max_size - 1) // 2
                         center_y = j - (max_size - 1) // 2
-        # Return the center coordinates of the largest square area as a tuple
-        index = center_x + (m * center_y)
-        pos_x, pos_y = self.cell_centers[index]
+        # Return the center coordinates of the largest square area as a tuple.
+        # Bezposredni mapping (rid, cid) -> world coords (patrz komentarz w
+        # generate_pos_obst_map — fix indexowego bug'a Huang framework)
+        L, W = self.obstacle_map.shape
+        pos_x = center_x + 0.5 - L // 2
+        pos_y = center_y + 0.5 - W // 2
         z_list_start = np.random.uniform(low=1.5, high=3.0)
         return np.array([pos_x, pos_y, z_list_start])
