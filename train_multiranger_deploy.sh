@@ -22,11 +22,16 @@ PYTHON=python
 STEPS=${STEPS:-1000000000}
 WIDTH=${WIDTH:-128}
 ANNEAL=${ANNEAL:-300000000}
+# Mieszanka 4 topologii, nie sama siatka. Powod: przy rownym budzecie
+# treningowym mieszanka daje 2.8x mniej kolizji z przeszkodami na
+# topologii budynku (0.87 vs 2.45 na epizod, patrz WYNIKI 4.6).
+# Pokoj z przeszkodami nie przypomina regularnej siatki.
+TOPOLOGY=${TOPOLOGY:-mix}
 SEED=${SEED:-0}
 NUM_WORKERS=${NUM_WORKERS:-60}
 MAX_RANGE=${MAX_RANGE:-4.0}
 NOISE_STD=${NOISE_STD:-0.03}
-EXPERIMENT=${EXPERIMENT:-multiranger_deploy_r${MAX_RANGE}_w${WIDTH}_s${SEED}}
+EXPERIMENT=${EXPERIMENT:-multiranger_deploy_r${MAX_RANGE}_w${WIDTH}_${TOPOLOGY}_s${SEED}}
 
 $PYTHON -m swarm_rl.train \
   --env=quadrotor_multi --algo=APPO --train_for_env_steps=$STEPS --use_rnn=False \
@@ -54,6 +59,7 @@ $PYTHON -m swarm_rl.train \
   --quads_multiranger_noise_std=$NOISE_STD \
   --quads_multiranger_fov_deg=27.0 \
   --quads_multiranger_num_rays=8 \
+  --quads_obst_topology=$TOPOLOGY \
   --quads_obst_spawn_area 8 8 --quads_obst_density=0.2 --quads_obst_size=0.6 \
   --quads_obst_collision_reward=5.0 \
   --quads_domain_random=True \
