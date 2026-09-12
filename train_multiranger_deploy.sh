@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Model WDROZENIOWY: ta sama architektura co sim2real, ale rnn_size=64.
+# Model WDROZENIOWY: ta sama architektura co sim2real, ale rnn_size=128 zamiast 256.
 # Architektura ta sama (QuadSingleHeadAttentionEncoder_Sim2Real), zmienia sie SZEROKOSC:
 #   R=256 -> 470k parametrow = 1837 KiB  -> NIE miesci sie w 1 MB flash STM32F405
 #   R=64  ->  32k parametrow =  123 KiB  -> miesci sie z zapasem
+#   R=128 -> 120k parametrow =  470 KiB  -> miesci sie (wybrane do wdrozenia)
 #
 # Kluczowa flaga: --quads_sim2real=True aktywuje mniejszą architekturę.
 # Bez niej sim2real.py NIE załaduje checkpointu (size mismatch).
@@ -13,13 +14,14 @@
 # np. rel_pos = (+8, +8, 0) i (-8, -8, 0), rel_vel = 0.
 #
 # Usage:
-#   bash train_multiranger_deploy.sh                      # R=64, 500M krokow
-#   WIDTH=32 bash train_multiranger_deploy.sh            # wezsza siec
+#   bash train_multiranger_deploy.sh                     # R=128, 1 mld krokow
+#   WIDTH=64 bash train_multiranger_deploy.sh            # wezsza siec
 #   STEPS=20000000 bash train_multiranger_deploy.sh      # smoke test (~20 min)
 
 PYTHON=python
-STEPS=${STEPS:-500000000}
-WIDTH=${WIDTH:-64}
+STEPS=${STEPS:-1000000000}
+WIDTH=${WIDTH:-128}
+ANNEAL=${ANNEAL:-300000000}
 SEED=${SEED:-0}
 NUM_WORKERS=${NUM_WORKERS:-60}
 MAX_RANGE=${MAX_RANGE:-4.0}
@@ -59,6 +61,6 @@ $PYTHON -m swarm_rl.train \
   --quads_obst_density_min=0.1 --quads_obst_density_max=0.3 \
   --quads_obst_size_random=True \
   --quads_obst_size_min=0.4 --quads_obst_size_max=0.8 \
-  --anneal_collision_steps=150000000 --replay_buffer_sample_prob=0.75 \
+  --anneal_collision_steps=$ANNEAL --replay_buffer_sample_prob=0.75 \
   --quads_use_downwash=True --with_wandb=False \
   --experiment=$EXPERIMENT
