@@ -39,6 +39,13 @@ MAX_RETRIES = 10
 
 TOPO_ORDER = ['grid', 'poisson', 'cluster', 'building']
 
+TOPO_LABELS_PL = {
+    'grid': 'siatka regularna',
+    'poisson': 'rozkład Poissona',
+    'cluster': 'klastry gaussowskie',
+    'building': 'wnętrze budynku',
+}
+
 
 # --------------------------------------------------------------------------
 # Stats collection
@@ -124,11 +131,11 @@ def figure_rejection_rates(stats, out_path='figures/topology_connectivity_stats.
             for t in TOPO_ORDER
         ]
         ax.bar(x + i * width - 1.5 * width, rates, width,
-               label=f'density={density}', color=colors[i])
+               label=f'zagęszczenie={density}', color=colors[i])
     ax.set_xticks(x)
-    ax.set_xticklabels(TOPO_ORDER, fontsize=11)
-    ax.set_ylabel('Rejection rate (%)', fontsize=11)
-    ax.set_title('Odsetek odrzuconych generacji\n(niesposjne wolne przestrzenie)',
+    ax.set_xticklabels([TOPO_LABELS_PL[t] for t in TOPO_ORDER], fontsize=11)
+    ax.set_ylabel('Odsetek odrzuceń (%)', fontsize=11)
+    ax.set_title('Odsetek odrzuconych generacji\n(niespójne wolne przestrzenie)',
                  fontsize=12, fontweight='bold')
     ax.legend(loc='upper left', fontsize=9)
     ax.grid(True, alpha=0.3, axis='y')
@@ -139,21 +146,16 @@ def figure_rejection_rates(stats, out_path='figures/topology_connectivity_stats.
     for i, density in enumerate(DENSITIES):
         mean_atts = [np.mean(stats[t][density]['attempts']) for t in TOPO_ORDER]
         ax.bar(x + i * width - 1.5 * width, mean_atts, width,
-               label=f'density={density}', color=colors[i])
+               label=f'zagęszczenie={density}', color=colors[i])
     ax.set_xticks(x)
-    ax.set_xticklabels(TOPO_ORDER, fontsize=11)
-    ax.set_ylabel('Srednia liczba prob generacji', fontsize=11)
-    ax.set_title('Srednia liczba prob do sukcesu\n(1.0 = zawsze pierwsze przelozenie OK)',
+    ax.set_xticklabels([TOPO_LABELS_PL[t] for t in TOPO_ORDER], fontsize=11)
+    ax.set_ylabel('Średnia liczba prób generacji', fontsize=11)
+    ax.set_title('Średnia liczba prób do sukcesu\n(1.0 = zawsze pierwsze przełożenie OK)',
                  fontsize=12, fontweight='bold')
     ax.legend(loc='upper left', fontsize=9)
     ax.grid(True, alpha=0.3, axis='y')
     ax.axhline(y=1.0, color='green', linestyle='--', alpha=0.5, linewidth=1)
 
-    fig.suptitle(
-        f'Connectivity check statistics — N={N_SAMPLES} sampli per (topologia, density), '
-        f'max_retries={MAX_RETRIES}',
-        fontsize=13, fontweight='bold', y=1.02
-    )
     plt.tight_layout()
     plt.savefig(out_path, dpi=160, bbox_inches='tight', facecolor='white')
     print(f'Wrote: {out_path}')
@@ -239,8 +241,9 @@ def figure_accepted_vs_rejected(stats, density=0.3,
             if j < 2:  # accepted
                 if j < len(accepted):
                     _, pos, bare = accepted[j]
-                    draw_topology_with_components(ax, pos, bare,
-                                                   f"{topo} — accepted #{j+1}")
+                    draw_topology_with_components(
+                        ax, pos, bare,
+                        f"{TOPO_LABELS_PL[topo]}, przyjęte #{j+1}")
                 else:
                     ax.text(0.5, 0.5, 'brak',
                             ha='center', va='center', fontsize=12,
@@ -252,19 +255,14 @@ def figure_accepted_vs_rejected(stats, density=0.3,
                     _, pos, bare, n_comp = rejected[rej_idx]
                     draw_topology_with_components(
                         ax, pos, bare,
-                        f"{topo} — rejected (najw. fragm.)")
+                        f"{TOPO_LABELS_PL[topo]}, odrzucone (najw. fragm.)")
                 else:
                     ax.text(0.5, 0.5, 'brak rejects\n(100% accept rate)',
                             ha='center', va='center', fontsize=10,
                             color='gray', transform=ax.transAxes)
                     ax.set_xticks([]); ax.set_yticks([])
 
-    fig.suptitle(
-        f'Accepted vs Rejected topologies (density={density}) — kolory oznaczaja '
-        f'connected components; badge OK = 1 komponent, N komp. = fragmentacja',
-        fontsize=13, fontweight='bold', y=1.005
-    )
-    plt.tight_layout(rect=[0, 0, 1, 0.99])
+    plt.tight_layout()
     plt.savefig(out_path, dpi=160, bbox_inches='tight', facecolor='white')
     print(f'Wrote: {out_path}')
 

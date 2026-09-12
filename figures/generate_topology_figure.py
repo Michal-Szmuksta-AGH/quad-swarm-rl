@@ -24,10 +24,10 @@ ROOM_H = 10.0
 
 
 TITLES_PL = {
-    'grid': 'Siatka regularna\n(baseline paperu Huang et al.)',
-    'poisson': 'Rozklad Poissona\n(uniform random z min. odstepem)',
-    'cluster': 'Klastry gaussowskie\n(3 grupy przeszkod)',
-    'building': 'Wnetrze budynku\n(BSP: sciany pod roznymi katami, drzwi)',
+    'grid': 'Siatka regularna\n(konfiguracja bazowa)',
+    'poisson': 'Rozkład Poissona\n(losowe równomierne z minimalnym odstępem)',
+    'cluster': 'Klastry gaussowskie\n(3 grupy przeszkód)',
+    'building': 'Wnętrze budynku\n(BSP, ściany pod różnymi kątami, drzwi)',
 }
 
 
@@ -92,16 +92,10 @@ def main():
                 ax.set_title(TITLES_PL[name], fontsize=11, pad=10, fontweight='bold')
             # Row label on leftmost
             if i == 0:
-                ax.set_ylabel(f"Seed {row}", fontsize=10, rotation=0,
+                ax.set_ylabel(f"Ziarno {row}", fontsize=10, rotation=0,
                                labelpad=30, va='center', color='dimgray')
 
-    fig.suptitle(
-        f"Topologie rozmieszczenia przeszkod — obszar {int(SPAWN[0])}x{int(SPAWN[1])}m, "
-        f"gestosc {DENSITY}, przeszkody o srednicy {OBST_SIZE}m",
-        fontsize=13, y=0.99, fontweight='bold'
-    )
-
-    plt.tight_layout(rect=[0.02, 0, 1, 0.97])
+    plt.tight_layout(rect=[0.02, 0, 1, 1.0])
     plt.savefig(out_path, dpi=160, bbox_inches='tight', facecolor='white')
     print(f"Wrote: {out_path}")
 

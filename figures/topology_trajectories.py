@@ -374,10 +374,10 @@ def main():
     model_label = MODEL_LABELS_SHORT.get(args.model, args.model)
     topo_label = TOPO_LABELS_PL.get(args.topology, args.topology)
     fig.suptitle(
-        f'Trajektorie dronow: {model_label} @ {topo_label}\n'
-        f'{n} epizodow (seedy {args.seed_start}-{args.seed_start + n - 1}) '
-        f'| kazdy dron = inny kolor | ▲ start | ● goal | '
-        f'* obst_col | ▼ floor_crash | X wall_crash',
+        f'Trajektorie dronów: {model_label} @ {topo_label}\n'
+        f'{n} epizodów (seedy {args.seed_start}-{args.seed_start + n - 1}) '
+        f'| każdy dron = inny kolor | ▲ start | ● cel | '
+        f'* kolizja z przeszkodą | ▼ upadek na podłogę | X uderzenie w ścianę',
         fontsize=12, y=0.995, fontweight='bold',
     )
     plt.tight_layout(rect=[0, 0, 1, 0.98])

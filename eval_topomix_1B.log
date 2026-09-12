@@ -1,0 +1,841 @@
+
+================================================================
+  multiranger_r4.0_topomix_8drones_s0_1B  @  topology=grid
+================================================================
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[36m[2026-08-30 15:31:28,175][12139] register_encoder_factory: <function make_quadmulti_encoder at 0x7078251e2b60>[0m
+[33m[2026-08-30 15:31:28,183][12139] Loading existing experiment configuration from train_dir/multiranger_r4.0_topomix_8drones_s0_1B/config.json[0m
+[36m[2026-08-30 15:31:28,183][12139] Overriding arg 'experiment' with value 'multiranger_r4.0_topomix_8drones_s0_1B' passed from command line[0m
+[36m[2026-08-30 15:31:28,183][12139] Overriding arg 'train_dir' with value 'train_dir' passed from command line[0m
+[36m[2026-08-30 15:31:28,184][12139] Overriding arg 'quads_topology_seed' with value 1234 passed from command line[0m
+[36m[2026-08-30 15:31:28,184][12139] Overriding arg 'quads_obst_topology' with value 'grid' passed from command line[0m
+[36m[2026-08-30 15:31:28,184][12139] Overriding arg 'replay_buffer_sample_prob' with value 0.0 passed from command line[0m
+[36m[2026-08-30 15:31:28,184][12139] Overriding arg 'quads_render' with value True passed from command line[0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'fps'=0 that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'no_render'=True that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'save_video'=False that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'video_name'=None that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'max_num_episodes'=300 that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'push_to_hub'=False that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'hf_repository'=None that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'policy_index'=0 that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'eval_deterministic'=False that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'train_script'=None that is not in the saved config file![0m
+[36m[2026-08-30 15:31:28,184][12139] Adding new argument 'enjoy_script'=None that is not in the saved config file![0m
+/home/michal/miniconda3/envs/swarm-rl/lib/python3.11/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+[33m[2026-08-30 15:31:29,249][12139] Loading state from checkpoint train_dir/multiranger_r4.0_topomix_8drones_s0_1B/checkpoint_p0/checkpoint_000976566_1000003584.pth...[0m
+/home/michal/miniconda3/envs/swarm-rl/lib/python3.11/site-packages/sample_factory/algo/learning/learner.py:281: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint_dict = torch.load(latest_checkpoint, map_location=device)
+[37m[1m[2026-08-30 15:31:29,279][12139] Loaded checkpoint, starting eval: 300 episodes, 8 drones[0m
+[37m[1m[2026-08-30 15:32:12,423][12139] Env episodes done: 5 / 300  (frame 7505)[0m
+[37m[1m[2026-08-30 15:32:43,195][12139] Env episodes done: 10 / 300  (frame 15010)[0m
+[37m[1m[2026-08-30 15:33:13,692][12139] Env episodes done: 15 / 300  (frame 22515)[0m
+[37m[1m[2026-08-30 15:33:43,439][12139] Env episodes done: 20 / 300  (frame 30020)[0m
+[37m[1m[2026-08-30 15:34:14,019][12139] Env episodes done: 25 / 300  (frame 37525)[0m
+[37m[1m[2026-08-30 15:34:43,569][12139] Env episodes done: 30 / 300  (frame 45030)[0m
+[37m[1m[2026-08-30 15:35:14,262][12139] Env episodes done: 35 / 300  (frame 52535)[0m
+[37m[1m[2026-08-30 15:35:44,886][12139] Env episodes done: 40 / 300  (frame 60040)[0m
+[37m[1m[2026-08-30 15:36:15,744][12139] Env episodes done: 45 / 300  (frame 67545)[0m
+[37m[1m[2026-08-30 15:36:46,266][12139] Env episodes done: 50 / 300  (frame 75050)[0m
+[37m[1m[2026-08-30 15:37:16,842][12139] Env episodes done: 55 / 300  (frame 82555)[0m
+[37m[1m[2026-08-30 15:37:46,806][12139] Env episodes done: 60 / 300  (frame 90060)[0m
+[37m[1m[2026-08-30 15:38:16,727][12139] Env episodes done: 65 / 300  (frame 97565)[0m
+[37m[1m[2026-08-30 15:38:47,340][12139] Env episodes done: 70 / 300  (frame 105070)[0m
+[37m[1m[2026-08-30 15:39:19,749][12139] Env episodes done: 75 / 300  (frame 112575)[0m
+[37m[1m[2026-08-30 15:39:50,577][12139] Env episodes done: 80 / 300  (frame 120080)[0m
+[37m[1m[2026-08-30 15:40:21,094][12139] Env episodes done: 85 / 300  (frame 127585)[0m
+[37m[1m[2026-08-30 15:40:51,390][12139] Env episodes done: 90 / 300  (frame 135090)[0m
+[37m[1m[2026-08-30 15:41:21,563][12139] Env episodes done: 95 / 300  (frame 142595)[0m
+[37m[1m[2026-08-30 15:41:52,348][12139] Env episodes done: 100 / 300  (frame 150100)[0m
+[37m[1m[2026-08-30 15:42:23,999][12139] Env episodes done: 105 / 300  (frame 157605)[0m
+[37m[1m[2026-08-30 15:42:55,568][12139] Env episodes done: 110 / 300  (frame 165110)[0m
+[37m[1m[2026-08-30 15:43:25,434][12139] Env episodes done: 115 / 300  (frame 172615)[0m
+[37m[1m[2026-08-30 15:43:55,825][12139] Env episodes done: 120 / 300  (frame 180120)[0m
+[37m[1m[2026-08-30 15:44:26,672][12139] Env episodes done: 125 / 300  (frame 187625)[0m
+[37m[1m[2026-08-30 15:44:58,029][12139] Env episodes done: 130 / 300  (frame 195130)[0m
+[37m[1m[2026-08-30 15:45:28,842][12139] Env episodes done: 135 / 300  (frame 202635)[0m
+[37m[1m[2026-08-30 15:45:59,441][12139] Env episodes done: 140 / 300  (frame 210140)[0m
+[37m[1m[2026-08-30 15:46:29,956][12139] Env episodes done: 145 / 300  (frame 217645)[0m
+[37m[1m[2026-08-30 15:47:00,826][12139] Env episodes done: 150 / 300  (frame 225150)[0m
+[37m[1m[2026-08-30 15:47:31,828][12139] Env episodes done: 155 / 300  (frame 232655)[0m
+[37m[1m[2026-08-30 15:48:02,429][12139] Env episodes done: 160 / 300  (frame 240160)[0m
+[37m[1m[2026-08-30 15:48:32,633][12139] Env episodes done: 165 / 300  (frame 247665)[0m
+[37m[1m[2026-08-30 15:49:03,203][12139] Env episodes done: 170 / 300  (frame 255170)[0m
+[37m[1m[2026-08-30 15:49:33,496][12139] Env episodes done: 175 / 300  (frame 262675)[0m
+[37m[1m[2026-08-30 15:50:03,663][12139] Env episodes done: 180 / 300  (frame 270180)[0m
+[37m[1m[2026-08-30 15:50:34,820][12139] Env episodes done: 185 / 300  (frame 277685)[0m
+[37m[1m[2026-08-30 15:51:06,733][12139] Env episodes done: 190 / 300  (frame 285190)[0m
+[37m[1m[2026-08-30 15:51:36,754][12139] Env episodes done: 195 / 300  (frame 292695)[0m
+[37m[1m[2026-08-30 15:52:07,849][12139] Env episodes done: 200 / 300  (frame 300200)[0m
+[37m[1m[2026-08-30 15:52:39,198][12139] Env episodes done: 205 / 300  (frame 307705)[0m
+[37m[1m[2026-08-30 15:53:13,015][12139] Env episodes done: 210 / 300  (frame 315210)[0m
+[37m[1m[2026-08-30 15:53:46,494][12139] Env episodes done: 215 / 300  (frame 322715)[0m
+[37m[1m[2026-08-30 15:54:18,969][12139] Env episodes done: 220 / 300  (frame 330220)[0m
+[37m[1m[2026-08-30 15:54:49,964][12139] Env episodes done: 225 / 300  (frame 337725)[0m
+[37m[1m[2026-08-30 15:55:22,515][12139] Env episodes done: 230 / 300  (frame 345230)[0m
+[37m[1m[2026-08-30 15:55:53,433][12139] Env episodes done: 235 / 300  (frame 352735)[0m
+[37m[1m[2026-08-30 15:56:24,222][12139] Env episodes done: 240 / 300  (frame 360240)[0m
+[37m[1m[2026-08-30 15:56:54,733][12139] Env episodes done: 245 / 300  (frame 367745)[0m
+[37m[1m[2026-08-30 15:57:27,355][12139] Env episodes done: 250 / 300  (frame 375250)[0m
+[37m[1m[2026-08-30 15:57:57,629][12139] Env episodes done: 255 / 300  (frame 382755)[0m
+[37m[1m[2026-08-30 15:58:28,613][12139] Env episodes done: 260 / 300  (frame 390260)[0m
+[37m[1m[2026-08-30 15:59:01,090][12139] Env episodes done: 265 / 300  (frame 397765)[0m
+[37m[1m[2026-08-30 15:59:32,909][12139] Env episodes done: 270 / 300  (frame 405270)[0m
+[37m[1m[2026-08-30 16:00:05,214][12139] Env episodes done: 275 / 300  (frame 412775)[0m
+[37m[1m[2026-08-30 16:00:38,175][12139] Env episodes done: 280 / 300  (frame 420280)[0m
+[37m[1m[2026-08-30 16:01:09,321][12139] Env episodes done: 285 / 300  (frame 427785)[0m
+[37m[1m[2026-08-30 16:01:40,059][12139] Env episodes done: 290 / 300  (frame 435290)[0m
+[37m[1m[2026-08-30 16:02:12,186][12139] Env episodes done: 295 / 300  (frame 442795)[0m
+[37m[1m[2026-08-30 16:02:42,773][12139] Env episodes done: 300 / 300  (frame 450300)[0m
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+
+==============================================================================
+  EVALUATION SUMMARY  —  experiment: multiranger_r4.0_topomix_8drones_s0_1B
+==============================================================================
+  Drones / env:      8
+  Env episodes done: 300
+  Total frames:      450300
+  Room dims:         [10.0, 10.0, 10.0]
+  Obst spawn area:   [8.0, 8.0]
+  Obst density/size: 0.2 / 0.6 m
+  Quads mode:        mix
+  Domain random:     False
+  Episode duration:  15.0 s
+------------------------------------------------------------------------------
+  Scenario_o_random/rew_crash                             mean=-0.0037  std=0.0112  n=1080
+  Scenario_o_random/rew_pos                               mean=-6.2589  std=4.4610  n=1080
+  Scenario_o_static_same_goal/rew_crash                   mean=-0.0036  std=0.0244  n=1320
+  Scenario_o_static_same_goal/rew_pos                     mean=-6.0757  std=4.1793  n=1320
+  distance_to_goal_1s                                     mean=0.2330  std=0.3631  n=2400
+  distance_to_goal_3s                                     mean=0.2384  std=0.3662  n=2400
+  distance_to_goal_5s                                     mean=0.2467  std=0.3732  n=2400
+  metric/agent_col_rate                                   mean=0.1475  std=0.2021  n=2400  [paper: 0.030]
+  metric/agent_deadlock_rate                              mean=0.0163  std=0.0456  n=2400
+  metric/agent_neighbor_col_rate                          mean=0.1000  std=0.2003  n=2400
+  metric/agent_obst_col_rate                              mean=0.0608  std=0.0921  n=2400
+  metric/agent_success_rate                               mean=0.8363  std=0.2021  n=2400  [paper: 0.970]
+  num_collisions                                          mean=0.4967  std=1.0786  n=2400
+  num_collisions_after_settle                             mean=0.4933  std=1.0755  n=2400
+  num_collisions_final_5_s                                mean=0.0233  std=0.2224  n=2400
+  num_collisions_obst_quad                                mean=0.8200  std=1.0397  n=2400
+  num_collisions_obst_quad_3_5                            mean=0.1067  std=0.4187  n=2400
+  num_collisions_obst_quad_5                              mean=0.0267  std=0.2932  n=2400
+  num_collisions_obst_quad_after_settle                   mean=0.5600  std=0.8905  n=2400
+  num_collisions_with_ceiling                             mean=0.0000  std=0.0000  n=2400
+  num_collisions_with_floor                               mean=0.5400  std=1.1868  n=2400
+  num_collisions_with_room                                mean=0.4500  std=0.9665  n=2400
+  num_collisions_with_wall                                mean=0.0067  std=0.0814  n=2400
+  o_random/agent_col_rate                                 mean=0.0630  std=0.0859  n=1080
+  o_random/agent_deadlock_rate                            mean=0.0241  std=0.0516  n=1080
+  o_random/agent_neighbor_col_rate                        mean=0.0037  std=0.0302  n=1080
+  o_random/agent_obst_col_rate                            mean=0.0593  std=0.0831  n=1080
+  o_random/agent_success_rate                             mean=0.9130  std=0.1012  n=1080
+  o_random/distance_to_goal_1s                            mean=0.1775  std=0.4027  n=1080
+  o_random/distance_to_goal_3s                            mean=0.1818  std=0.4086  n=1080
+  o_random/distance_to_goal_5s                            mean=0.1883  std=0.4163  n=1080
+  o_random/num_collisions                                 mean=0.0148  std=0.1208  n=1080
+  o_random/num_collisions_final_5_s                       mean=0.0000  std=0.0000  n=1080
+  o_random/num_collisions_obst                            mean=0.8519  std=0.9927  n=1080
+  o_random/num_collisions_obst_quad_3_5                   mean=0.1111  std=0.4818  n=1080
+  o_random/num_collisions_obst_quad_5                     mean=0.0593  std=0.4348  n=1080
+  o_static_same_goal/agent_col_rate                       mean=0.2167  std=0.2400  n=1320
+  o_static_same_goal/agent_deadlock_rate                  mean=0.0098  std=0.0389  n=1320
+  o_static_same_goal/agent_neighbor_col_rate              mean=0.1788  std=0.2416  n=1320
+  o_static_same_goal/agent_obst_col_rate                  mean=0.0621  std=0.0989  n=1320
+  o_static_same_goal/agent_success_rate                   mean=0.7735  std=0.2390  n=1320
+  o_static_same_goal/distance_to_goal_1s                  mean=0.2784  std=0.3201  n=1320
+  o_static_same_goal/distance_to_goal_3s                  mean=0.2847  std=0.3201  n=1320
+  o_static_same_goal/distance_to_goal_5s                  mean=0.2945  std=0.3261  n=1320
+  o_static_same_goal/num_collisions                       mean=0.8848  std=1.3230  n=1320
+  o_static_same_goal/num_collisions_final_5_s             mean=0.0424  std=0.2985  n=1320
+  o_static_same_goal/num_collisions_obst                  mean=0.7939  std=1.0759  n=1320
+  o_static_same_goal/num_collisions_obst_quad_3_5         mean=0.1030  std=0.3589  n=1320
+  o_static_same_goal/num_collisions_obst_quad_5           mean=0.0000  std=0.0000  n=1320
+  rew_action                                              mean=-0.3392  std=0.0120  n=2400
+  rew_crash                                               mean=-0.0037  std=0.0196  n=2400
+  rew_main                                                mean=-6.1581  std=4.3093  n=2400
+  rew_orient                                              mean=7.3773  std=0.1271  n=2400
+  rew_pos                                                 mean=-6.1581  std=4.3093  n=2400
+  rew_proximity                                           mean=0.0000  std=0.0000  n=2400
+  rew_quadcol                                             mean=0.0000  std=0.0000  n=2400
+  rew_quadcol_obstacle                                    mean=0.0000  std=0.0000  n=2400
+  rew_spin                                                mean=-1.2208  std=0.4223  n=2400
+  rewraw_action                                           mean=-6.7843  std=0.2391  n=2400
+  rewraw_crash                                            mean=-0.0037  std=0.0196  n=2400
+  rewraw_main                                             mean=-130.7415  std=403.0592  n=2400
+  rewraw_orient                                           mean=7.3773  std=0.1271  n=2400
+  rewraw_pos                                              mean=-6.1581  std=4.3093  n=2400
+  rewraw_quadcol                                          mean=-0.1246  std=0.4030  n=2400
+  rewraw_quadcol_obstacle                                 mean=-0.1025  std=0.3517  n=2400
+  rewraw_spin                                             mean=-12.2078  std=4.2231  n=2400
+  topology/fallback                                       mean=0.0000  std=0.0000  n=2400
+  topology/retries                                        mean=1.4300  std=0.7605  n=2400
+  topology/retries_grid                                   mean=1.4300  std=0.7605  n=2400
+  z_action0_mean                                          mean=0.1363  std=0.0135  n=2400
+  z_action0_std                                           mean=0.4514  std=0.0067  n=2400
+  z_action1_mean                                          mean=0.1354  std=0.0135  n=2400
+  z_action1_std                                           mean=0.4493  std=0.0073  n=2400
+  z_action2_mean                                          mean=0.1442  std=0.0136  n=2400
+  z_action2_std                                           mean=0.4780  std=0.0076  n=2400
+  z_action3_mean                                          mean=0.1391  std=0.0133  n=2400
+  z_action3_std                                           mean=0.4632  std=0.0075  n=2400
+  z_anneal_quadcol_bin                                    mean=0.0000  std=0.0000  n=2400
+  z_anneal_quadcol_bin_obst                               mean=0.0000  std=0.0000  n=2400
+  z_anneal_quadcol_bin_smooth_max                         mean=0.0000  std=0.0000  n=2400
+  z_approx_total_training_steps                           mean=0.0000  std=0.0000  n=2400
+==============================================================================
+  Avg episode reward (across agents): -0.345
+==============================================================================
+  VERDICT: MID — usable but worse than paper. Investigate before retraining.
+==============================================================================
+  Saved JSON: train_dir/multiranger_r4.0_topomix_8drones_s0_1B/eval_metrics.json
+
+  → train_dir/multiranger_r4.0_topomix_8drones_s0_1B/eval_metrics_topo_grid.json
+
+================================================================
+  multiranger_r4.0_topomix_8drones_s0_1B  @  topology=poisson
+================================================================
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[36m[2026-08-30 16:02:44,745][13968] register_encoder_factory: <function make_quadmulti_encoder at 0x741b273e2b60>[0m
+[33m[2026-08-30 16:02:44,759][13968] Loading existing experiment configuration from train_dir/multiranger_r4.0_topomix_8drones_s0_1B/config.json[0m
+[36m[2026-08-30 16:02:44,760][13968] Overriding arg 'experiment' with value 'multiranger_r4.0_topomix_8drones_s0_1B' passed from command line[0m
+[36m[2026-08-30 16:02:44,760][13968] Overriding arg 'train_dir' with value 'train_dir' passed from command line[0m
+[36m[2026-08-30 16:02:44,760][13968] Overriding arg 'quads_topology_seed' with value 1234 passed from command line[0m
+[36m[2026-08-30 16:02:44,760][13968] Overriding arg 'quads_obst_topology' with value 'poisson' passed from command line[0m
+[36m[2026-08-30 16:02:44,760][13968] Overriding arg 'replay_buffer_sample_prob' with value 0.0 passed from command line[0m
+[36m[2026-08-30 16:02:44,760][13968] Overriding arg 'quads_render' with value True passed from command line[0m
+[36m[2026-08-30 16:02:44,760][13968] Adding new argument 'fps'=0 that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,760][13968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,760][13968] Adding new argument 'no_render'=True that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,760][13968] Adding new argument 'save_video'=False that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,760][13968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,760][13968] Adding new argument 'video_name'=None that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,760][13968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,760][13968] Adding new argument 'max_num_episodes'=300 that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,761][13968] Adding new argument 'push_to_hub'=False that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,761][13968] Adding new argument 'hf_repository'=None that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,761][13968] Adding new argument 'policy_index'=0 that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,761][13968] Adding new argument 'eval_deterministic'=False that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,761][13968] Adding new argument 'train_script'=None that is not in the saved config file![0m
+[36m[2026-08-30 16:02:44,761][13968] Adding new argument 'enjoy_script'=None that is not in the saved config file![0m
+/home/michal/miniconda3/envs/swarm-rl/lib/python3.11/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+[33m[2026-08-30 16:02:45,759][13968] Loading state from checkpoint train_dir/multiranger_r4.0_topomix_8drones_s0_1B/checkpoint_p0/checkpoint_000976566_1000003584.pth...[0m
+/home/michal/miniconda3/envs/swarm-rl/lib/python3.11/site-packages/sample_factory/algo/learning/learner.py:281: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint_dict = torch.load(latest_checkpoint, map_location=device)
+[37m[1m[2026-08-30 16:02:45,786][13968] Loaded checkpoint, starting eval: 300 episodes, 8 drones[0m
+[37m[1m[2026-08-30 16:03:28,092][13968] Env episodes done: 5 / 300  (frame 7505)[0m
+[37m[1m[2026-08-30 16:03:58,294][13968] Env episodes done: 10 / 300  (frame 15010)[0m
+[37m[1m[2026-08-30 16:04:28,465][13968] Env episodes done: 15 / 300  (frame 22515)[0m
+[37m[1m[2026-08-30 16:04:58,435][13968] Env episodes done: 20 / 300  (frame 30020)[0m
+[37m[1m[2026-08-30 16:05:28,578][13968] Env episodes done: 25 / 300  (frame 37525)[0m
+[37m[1m[2026-08-30 16:05:59,150][13968] Env episodes done: 30 / 300  (frame 45030)[0m
+[37m[1m[2026-08-30 16:06:29,357][13968] Env episodes done: 35 / 300  (frame 52535)[0m
+[37m[1m[2026-08-30 16:06:59,779][13968] Env episodes done: 40 / 300  (frame 60040)[0m
+[37m[1m[2026-08-30 16:07:30,234][13968] Env episodes done: 45 / 300  (frame 67545)[0m
+[37m[1m[2026-08-30 16:08:00,819][13968] Env episodes done: 50 / 300  (frame 75050)[0m
+[37m[1m[2026-08-30 16:08:30,504][13968] Env episodes done: 55 / 300  (frame 82555)[0m
+[37m[1m[2026-08-30 16:09:00,201][13968] Env episodes done: 60 / 300  (frame 90060)[0m
+[37m[1m[2026-08-30 16:09:30,492][13968] Env episodes done: 65 / 300  (frame 97565)[0m
+[37m[1m[2026-08-30 16:10:00,561][13968] Env episodes done: 70 / 300  (frame 105070)[0m
+[37m[1m[2026-08-30 16:10:30,408][13968] Env episodes done: 75 / 300  (frame 112575)[0m
+[37m[1m[2026-08-30 16:11:00,234][13968] Env episodes done: 80 / 300  (frame 120080)[0m
+[37m[1m[2026-08-30 16:11:29,848][13968] Env episodes done: 85 / 300  (frame 127585)[0m
+[37m[1m[2026-08-30 16:11:59,626][13968] Env episodes done: 90 / 300  (frame 135090)[0m
+[37m[1m[2026-08-30 16:12:29,804][13968] Env episodes done: 95 / 300  (frame 142595)[0m
+[37m[1m[2026-08-30 16:12:59,803][13968] Env episodes done: 100 / 300  (frame 150100)[0m
+[37m[1m[2026-08-30 16:13:29,612][13968] Env episodes done: 105 / 300  (frame 157605)[0m
+[37m[1m[2026-08-30 16:13:59,420][13968] Env episodes done: 110 / 300  (frame 165110)[0m
+[37m[1m[2026-08-30 16:14:29,234][13968] Env episodes done: 115 / 300  (frame 172615)[0m
+[37m[1m[2026-08-30 16:14:58,789][13968] Env episodes done: 120 / 300  (frame 180120)[0m
+[37m[1m[2026-08-30 16:15:27,777][13968] Env episodes done: 125 / 300  (frame 187625)[0m
+[37m[1m[2026-08-30 16:15:58,090][13968] Env episodes done: 130 / 300  (frame 195130)[0m
+[37m[1m[2026-08-30 16:16:28,410][13968] Env episodes done: 135 / 300  (frame 202635)[0m
+[37m[1m[2026-08-30 16:16:59,013][13968] Env episodes done: 140 / 300  (frame 210140)[0m
+[37m[1m[2026-08-30 16:17:29,121][13968] Env episodes done: 145 / 300  (frame 217645)[0m
+[37m[1m[2026-08-30 16:17:58,750][13968] Env episodes done: 150 / 300  (frame 225150)[0m
+[37m[1m[2026-08-30 16:18:27,722][13968] Env episodes done: 155 / 300  (frame 232655)[0m
+[37m[1m[2026-08-30 16:18:56,849][13968] Env episodes done: 160 / 300  (frame 240160)[0m
+[37m[1m[2026-08-30 16:19:26,063][13968] Env episodes done: 165 / 300  (frame 247665)[0m
+[37m[1m[2026-08-30 16:19:55,620][13968] Env episodes done: 170 / 300  (frame 255170)[0m
+[37m[1m[2026-08-30 16:20:24,972][13968] Env episodes done: 175 / 300  (frame 262675)[0m
+[37m[1m[2026-08-30 16:20:53,948][13968] Env episodes done: 180 / 300  (frame 270180)[0m
+[37m[1m[2026-08-30 16:21:23,141][13968] Env episodes done: 185 / 300  (frame 277685)[0m
+[37m[1m[2026-08-30 16:21:52,810][13968] Env episodes done: 190 / 300  (frame 285190)[0m
+[37m[1m[2026-08-30 16:22:21,994][13968] Env episodes done: 195 / 300  (frame 292695)[0m
+[37m[1m[2026-08-30 16:22:51,867][13968] Env episodes done: 200 / 300  (frame 300200)[0m
+[37m[1m[2026-08-30 16:23:21,772][13968] Env episodes done: 205 / 300  (frame 307705)[0m
+[37m[1m[2026-08-30 16:23:51,569][13968] Env episodes done: 210 / 300  (frame 315210)[0m
+[37m[1m[2026-08-30 16:24:21,484][13968] Env episodes done: 215 / 300  (frame 322715)[0m
+[37m[1m[2026-08-30 16:24:51,064][13968] Env episodes done: 220 / 300  (frame 330220)[0m
+[37m[1m[2026-08-30 16:25:20,648][13968] Env episodes done: 225 / 300  (frame 337725)[0m
+[37m[1m[2026-08-30 16:25:50,614][13968] Env episodes done: 230 / 300  (frame 345230)[0m
+[37m[1m[2026-08-30 16:26:20,703][13968] Env episodes done: 235 / 300  (frame 352735)[0m
+[37m[1m[2026-08-30 16:26:50,007][13968] Env episodes done: 240 / 300  (frame 360240)[0m
+[37m[1m[2026-08-30 16:27:19,885][13968] Env episodes done: 245 / 300  (frame 367745)[0m
+[37m[1m[2026-08-30 16:27:49,952][13968] Env episodes done: 250 / 300  (frame 375250)[0m
+[37m[1m[2026-08-30 16:28:21,205][13968] Env episodes done: 255 / 300  (frame 382755)[0m
+[37m[1m[2026-08-30 16:28:50,665][13968] Env episodes done: 260 / 300  (frame 390260)[0m
+[37m[1m[2026-08-30 16:29:20,675][13968] Env episodes done: 265 / 300  (frame 397765)[0m
+[37m[1m[2026-08-30 16:29:50,685][13968] Env episodes done: 270 / 300  (frame 405270)[0m
+[37m[1m[2026-08-30 16:30:20,441][13968] Env episodes done: 275 / 300  (frame 412775)[0m
+[37m[1m[2026-08-30 16:30:50,032][13968] Env episodes done: 280 / 300  (frame 420280)[0m
+[37m[1m[2026-08-30 16:31:20,089][13968] Env episodes done: 285 / 300  (frame 427785)[0m
+[37m[1m[2026-08-30 16:31:49,897][13968] Env episodes done: 290 / 300  (frame 435290)[0m
+[37m[1m[2026-08-30 16:32:19,803][13968] Env episodes done: 295 / 300  (frame 442795)[0m
+[37m[1m[2026-08-30 16:32:49,389][13968] Env episodes done: 300 / 300  (frame 450300)[0m
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+
+==============================================================================
+  EVALUATION SUMMARY  —  experiment: multiranger_r4.0_topomix_8drones_s0_1B
+==============================================================================
+  Drones / env:      8
+  Env episodes done: 300
+  Total frames:      450300
+  Room dims:         [10.0, 10.0, 10.0]
+  Obst spawn area:   [8.0, 8.0]
+  Obst density/size: 0.2 / 0.6 m
+  Quads mode:        mix
+  Domain random:     False
+  Episode duration:  15.0 s
+------------------------------------------------------------------------------
+  Scenario_o_random/rew_crash                             mean=-0.0024  std=0.0087  n=1432
+  Scenario_o_random/rew_pos                               mean=-5.9693  std=4.2659  n=1432
+  Scenario_o_static_same_goal/rew_crash                   mean=-0.0030  std=0.0100  n=968
+  Scenario_o_static_same_goal/rew_pos                     mean=-6.3448  std=4.7424  n=968
+  distance_to_goal_1s                                     mean=0.2109  std=0.3106  n=2400
+  distance_to_goal_3s                                     mean=0.2168  std=0.3197  n=2400
+  distance_to_goal_5s                                     mean=0.2285  std=0.3465  n=2400
+  metric/agent_col_rate                                   mean=0.1146  std=0.1742  n=2400  [paper: 0.030]
+  metric/agent_deadlock_rate                              mean=0.0175  std=0.0501  n=2400
+  metric/agent_neighbor_col_rate                          mean=0.0667  std=0.1589  n=2400
+  metric/agent_obst_col_rate                              mean=0.0537  std=0.0852  n=2400
+  metric/agent_success_rate                               mean=0.8679  std=0.1806  n=2400  [paper: 0.970]
+  num_collisions                                          mean=0.3267  std=0.8083  n=2400
+  num_collisions_after_settle                             mean=0.3200  std=0.8027  n=2400
+  num_collisions_final_5_s                                mean=0.0167  std=0.1518  n=2400
+  num_collisions_obst_quad                                mean=0.8000  std=1.1372  n=2400
+  num_collisions_obst_quad_3_5                            mean=0.1600  std=0.4910  n=2400
+  num_collisions_obst_quad_5                              mean=0.0367  std=0.1879  n=2400
+  num_collisions_obst_quad_after_settle                   mean=0.5100  std=0.9146  n=2400
+  num_collisions_with_ceiling                             mean=0.0000  std=0.0000  n=2400
+  num_collisions_with_floor                               mean=0.4767  std=1.0845  n=2400
+  num_collisions_with_room                                mean=0.3633  std=0.7946  n=2400
+  num_collisions_with_wall                                mean=0.0067  std=0.0814  n=2400
+  o_random/agent_col_rate                                 mean=0.0684  std=0.0990  n=1432
+  o_random/agent_deadlock_rate                            mean=0.0230  std=0.0536  n=1432
+  o_random/agent_neighbor_col_rate                        mean=0.0063  std=0.0424  n=1432
+  o_random/agent_obst_col_rate                            mean=0.0628  std=0.0909  n=1432
+  o_random/agent_success_rate                             mean=0.9085  std=0.1171  n=1432
+  o_random/distance_to_goal_1s                            mean=0.1692  std=0.3310  n=1432
+  o_random/distance_to_goal_3s                            mean=0.1767  std=0.3463  n=1432
+  o_random/distance_to_goal_5s                            mean=0.1871  std=0.3733  n=1432
+  o_random/num_collisions                                 mean=0.0279  std=0.1958  n=1432
+  o_random/num_collisions_final_5_s                       mean=0.0000  std=0.0000  n=1432
+  o_random/num_collisions_obst                            mean=0.9497  std=1.2564  n=1432
+  o_random/num_collisions_obst_quad_3_5                   mean=0.1899  std=0.5469  n=1432
+  o_random/num_collisions_obst_quad_5                     mean=0.0559  std=0.2297  n=1432
+  o_static_same_goal/agent_col_rate                       mean=0.1829  std=0.2301  n=968
+  o_static_same_goal/agent_deadlock_rate                  mean=0.0093  std=0.0430  n=968
+  o_static_same_goal/agent_neighbor_col_rate              mean=0.1560  std=0.2158  n=968
+  o_static_same_goal/agent_obst_col_rate                  mean=0.0403  std=0.0740  n=968
+  o_static_same_goal/agent_success_rate                   mean=0.8079  std=0.2335  n=968
+  o_static_same_goal/distance_to_goal_1s                  mean=0.2726  std=0.2658  n=968
+  o_static_same_goal/distance_to_goal_3s                  mean=0.2762  std=0.2647  n=968
+  o_static_same_goal/distance_to_goal_5s                  mean=0.2897  std=0.2918  n=968
+  o_static_same_goal/num_collisions                       mean=0.7521  std=1.1081  n=968
+  o_static_same_goal/num_collisions_final_5_s             mean=0.0413  std=0.2369  n=968
+  o_static_same_goal/num_collisions_obst                  mean=0.5785  std=0.8884  n=968
+  o_static_same_goal/num_collisions_obst_quad_3_5         mean=0.1157  std=0.3897  n=968
+  o_static_same_goal/num_collisions_obst_quad_5           mean=0.0083  std=0.0905  n=968
+  rew_action                                              mean=-0.3382  std=0.0110  n=2400
+  rew_crash                                               mean=-0.0026  std=0.0093  n=2400
+  rew_main                                                mean=-6.1208  std=4.4680  n=2400
+  rew_orient                                              mean=7.3854  std=0.1117  n=2400
+  rew_pos                                                 mean=-6.1208  std=4.4680  n=2400
+  rew_proximity                                           mean=0.0000  std=0.0000  n=2400
+  rew_quadcol                                             mean=0.0000  std=0.0000  n=2400
+  rew_quadcol_obstacle                                    mean=0.0000  std=0.0000  n=2400
+  rew_spin                                                mean=-1.1756  std=0.3236  n=2400
+  rewraw_action                                           mean=-6.7634  std=0.2199  n=2400
+  rewraw_crash                                            mean=-0.0026  std=0.0093  n=2400
+  rewraw_main                                             mean=-87.7874  std=324.1692  n=2400
+  rewraw_orient                                           mean=7.3854  std=0.1117  n=2400
+  rewraw_pos                                              mean=-6.1208  std=4.4680  n=2400
+  rewraw_quadcol                                          mean=-0.0817  std=0.3240  n=2400
+  rewraw_quadcol_obstacle                                 mean=-0.1000  std=0.3686  n=2400
+  rewraw_spin                                             mean=-11.7560  std=3.2356  n=2400
+  topology/fallback                                       mean=0.0000  std=0.0000  n=2400
+  topology/retries                                        mean=1.4067  std=0.6985  n=2400
+  topology/retries_poisson                                mean=1.4067  std=0.6985  n=2400
+  z_action0_mean                                          mean=0.1331  std=0.0134  n=2400
+  z_action0_std                                           mean=0.4503  std=0.0054  n=2400
+  z_action1_mean                                          mean=0.1329  std=0.0134  n=2400
+  z_action1_std                                           mean=0.4487  std=0.0067  n=2400
+  z_action2_mean                                          mean=0.1411  std=0.0132  n=2400
+  z_action2_std                                           mean=0.4772  std=0.0064  n=2400
+  z_action3_mean                                          mean=0.1363  std=0.0134  n=2400
+  z_action3_std                                           mean=0.4623  std=0.0064  n=2400
+  z_anneal_quadcol_bin                                    mean=0.0000  std=0.0000  n=2400
+  z_anneal_quadcol_bin_obst                               mean=0.0000  std=0.0000  n=2400
+  z_anneal_quadcol_bin_smooth_max                         mean=0.0000  std=0.0000  n=2400
+  z_approx_total_training_steps                           mean=0.0000  std=0.0000  n=2400
+==============================================================================
+  Avg episode reward (across agents): -0.252
+==============================================================================
+  VERDICT: MID — usable but worse than paper. Investigate before retraining.
+==============================================================================
+  Saved JSON: train_dir/multiranger_r4.0_topomix_8drones_s0_1B/eval_metrics.json
+
+  → train_dir/multiranger_r4.0_topomix_8drones_s0_1B/eval_metrics_topo_poisson.json
+
+================================================================
+  multiranger_r4.0_topomix_8drones_s0_1B  @  topology=cluster
+================================================================
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[36m[2026-08-30 16:32:51,337][14061] register_encoder_factory: <function make_quadmulti_encoder at 0x7c3eb70d6b60>[0m
+[33m[2026-08-30 16:32:51,352][14061] Loading existing experiment configuration from train_dir/multiranger_r4.0_topomix_8drones_s0_1B/config.json[0m
+[36m[2026-08-30 16:32:51,353][14061] Overriding arg 'experiment' with value 'multiranger_r4.0_topomix_8drones_s0_1B' passed from command line[0m
+[36m[2026-08-30 16:32:51,353][14061] Overriding arg 'train_dir' with value 'train_dir' passed from command line[0m
+[36m[2026-08-30 16:32:51,353][14061] Overriding arg 'quads_topology_seed' with value 1234 passed from command line[0m
+[36m[2026-08-30 16:32:51,353][14061] Overriding arg 'quads_obst_topology' with value 'cluster' passed from command line[0m
+[36m[2026-08-30 16:32:51,353][14061] Overriding arg 'replay_buffer_sample_prob' with value 0.0 passed from command line[0m
+[36m[2026-08-30 16:32:51,353][14061] Overriding arg 'quads_render' with value True passed from command line[0m
+[36m[2026-08-30 16:32:51,353][14061] Adding new argument 'fps'=0 that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,354][14061] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,354][14061] Adding new argument 'no_render'=True that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,354][14061] Adding new argument 'save_video'=False that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,354][14061] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,354][14061] Adding new argument 'video_name'=None that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,354][14061] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,354][14061] Adding new argument 'max_num_episodes'=300 that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,354][14061] Adding new argument 'push_to_hub'=False that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,355][14061] Adding new argument 'hf_repository'=None that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,355][14061] Adding new argument 'policy_index'=0 that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,355][14061] Adding new argument 'eval_deterministic'=False that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,355][14061] Adding new argument 'train_script'=None that is not in the saved config file![0m
+[36m[2026-08-30 16:32:51,355][14061] Adding new argument 'enjoy_script'=None that is not in the saved config file![0m
+/home/michal/miniconda3/envs/swarm-rl/lib/python3.11/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+[33m[2026-08-30 16:32:52,344][14061] Loading state from checkpoint train_dir/multiranger_r4.0_topomix_8drones_s0_1B/checkpoint_p0/checkpoint_000976566_1000003584.pth...[0m
+/home/michal/miniconda3/envs/swarm-rl/lib/python3.11/site-packages/sample_factory/algo/learning/learner.py:281: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint_dict = torch.load(latest_checkpoint, map_location=device)
+[37m[1m[2026-08-30 16:32:52,371][14061] Loaded checkpoint, starting eval: 300 episodes, 8 drones[0m
+[37m[1m[2026-08-30 16:33:34,080][14061] Env episodes done: 5 / 300  (frame 7505)[0m
+[37m[1m[2026-08-30 16:34:03,871][14061] Env episodes done: 10 / 300  (frame 15010)[0m
+[37m[1m[2026-08-30 16:34:33,517][14061] Env episodes done: 15 / 300  (frame 22515)[0m
+[37m[1m[2026-08-30 16:35:02,869][14061] Env episodes done: 20 / 300  (frame 30020)[0m
+[37m[1m[2026-08-30 16:35:32,577][14061] Env episodes done: 25 / 300  (frame 37525)[0m
+[37m[1m[2026-08-30 16:36:02,064][14061] Env episodes done: 30 / 300  (frame 45030)[0m
+[37m[1m[2026-08-30 16:36:31,347][14061] Env episodes done: 35 / 300  (frame 52535)[0m
+[37m[1m[2026-08-30 16:37:00,891][14061] Env episodes done: 40 / 300  (frame 60040)[0m
+[37m[1m[2026-08-30 16:37:30,578][14061] Env episodes done: 45 / 300  (frame 67545)[0m
+[37m[1m[2026-08-30 16:37:59,805][14061] Env episodes done: 50 / 300  (frame 75050)[0m
+[37m[1m[2026-08-30 16:38:29,093][14061] Env episodes done: 55 / 300  (frame 82555)[0m
+[37m[1m[2026-08-30 16:38:58,779][14061] Env episodes done: 60 / 300  (frame 90060)[0m
+[37m[1m[2026-08-30 16:39:27,663][14061] Env episodes done: 65 / 300  (frame 97565)[0m
+[37m[1m[2026-08-30 16:39:56,967][14061] Env episodes done: 70 / 300  (frame 105070)[0m
+[37m[1m[2026-08-30 16:40:26,401][14061] Env episodes done: 75 / 300  (frame 112575)[0m
+[37m[1m[2026-08-30 16:40:55,551][14061] Env episodes done: 80 / 300  (frame 120080)[0m
+[37m[1m[2026-08-30 16:41:25,004][14061] Env episodes done: 85 / 300  (frame 127585)[0m
+[37m[1m[2026-08-30 16:41:54,195][14061] Env episodes done: 90 / 300  (frame 135090)[0m
+[37m[1m[2026-08-30 16:42:23,500][14061] Env episodes done: 95 / 300  (frame 142595)[0m
+[37m[1m[2026-08-30 16:42:52,905][14061] Env episodes done: 100 / 300  (frame 150100)[0m
+[37m[1m[2026-08-30 16:43:22,485][14061] Env episodes done: 105 / 300  (frame 157605)[0m
+[37m[1m[2026-08-30 16:43:52,061][14061] Env episodes done: 110 / 300  (frame 165110)[0m
+[37m[1m[2026-08-30 16:44:21,853][14061] Env episodes done: 115 / 300  (frame 172615)[0m
+[37m[1m[2026-08-30 16:44:50,996][14061] Env episodes done: 120 / 300  (frame 180120)[0m
+[37m[1m[2026-08-30 16:45:20,629][14061] Env episodes done: 125 / 300  (frame 187625)[0m
+[37m[1m[2026-08-30 16:45:50,282][14061] Env episodes done: 130 / 300  (frame 195130)[0m
+[37m[1m[2026-08-30 16:46:19,774][14061] Env episodes done: 135 / 300  (frame 202635)[0m
+[37m[1m[2026-08-30 16:46:49,341][14061] Env episodes done: 140 / 300  (frame 210140)[0m
+[37m[1m[2026-08-30 16:47:18,835][14061] Env episodes done: 145 / 300  (frame 217645)[0m
+[37m[1m[2026-08-30 16:47:48,086][14061] Env episodes done: 150 / 300  (frame 225150)[0m
+[37m[1m[2026-08-30 16:48:17,374][14061] Env episodes done: 155 / 300  (frame 232655)[0m
+[37m[1m[2026-08-30 16:48:46,880][14061] Env episodes done: 160 / 300  (frame 240160)[0m
+[37m[1m[2026-08-30 16:49:16,492][14061] Env episodes done: 165 / 300  (frame 247665)[0m
+[37m[1m[2026-08-30 16:49:46,053][14061] Env episodes done: 170 / 300  (frame 255170)[0m
+[37m[1m[2026-08-30 16:50:15,095][14061] Env episodes done: 175 / 300  (frame 262675)[0m
+[37m[1m[2026-08-30 16:50:44,344][14061] Env episodes done: 180 / 300  (frame 270180)[0m
+[37m[1m[2026-08-30 16:51:13,271][14061] Env episodes done: 185 / 300  (frame 277685)[0m
+[37m[1m[2026-08-30 16:51:42,226][14061] Env episodes done: 190 / 300  (frame 285190)[0m
+[37m[1m[2026-08-30 16:52:11,486][14061] Env episodes done: 195 / 300  (frame 292695)[0m
+[37m[1m[2026-08-30 16:52:40,690][14061] Env episodes done: 200 / 300  (frame 300200)[0m
+[37m[1m[2026-08-30 16:53:09,765][14061] Env episodes done: 205 / 300  (frame 307705)[0m
+[37m[1m[2026-08-30 16:53:38,739][14061] Env episodes done: 210 / 300  (frame 315210)[0m
+[37m[1m[2026-08-30 16:54:07,888][14061] Env episodes done: 215 / 300  (frame 322715)[0m
+[37m[1m[2026-08-30 16:54:36,937][14061] Env episodes done: 220 / 300  (frame 330220)[0m
+[37m[1m[2026-08-30 16:55:06,330][14061] Env episodes done: 225 / 300  (frame 337725)[0m
+[37m[1m[2026-08-30 16:55:35,806][14061] Env episodes done: 230 / 300  (frame 345230)[0m
+[37m[1m[2026-08-30 16:56:04,773][14061] Env episodes done: 235 / 300  (frame 352735)[0m
+[37m[1m[2026-08-30 16:56:33,868][14061] Env episodes done: 240 / 300  (frame 360240)[0m
+[37m[1m[2026-08-30 16:57:03,002][14061] Env episodes done: 245 / 300  (frame 367745)[0m
+[37m[1m[2026-08-30 16:57:31,857][14061] Env episodes done: 250 / 300  (frame 375250)[0m
+[37m[1m[2026-08-30 16:58:00,616][14061] Env episodes done: 255 / 300  (frame 382755)[0m
+[37m[1m[2026-08-30 16:58:29,819][14061] Env episodes done: 260 / 300  (frame 390260)[0m
+[37m[1m[2026-08-30 16:58:58,940][14061] Env episodes done: 265 / 300  (frame 397765)[0m
+[37m[1m[2026-08-30 16:59:27,844][14061] Env episodes done: 270 / 300  (frame 405270)[0m
+[37m[1m[2026-08-30 16:59:56,867][14061] Env episodes done: 275 / 300  (frame 412775)[0m
+[37m[1m[2026-08-30 17:00:25,680][14061] Env episodes done: 280 / 300  (frame 420280)[0m
+[37m[1m[2026-08-30 17:00:54,979][14061] Env episodes done: 285 / 300  (frame 427785)[0m
+[37m[1m[2026-08-30 17:01:24,036][14061] Env episodes done: 290 / 300  (frame 435290)[0m
+[37m[1m[2026-08-30 17:01:53,095][14061] Env episodes done: 295 / 300  (frame 442795)[0m
+[37m[1m[2026-08-30 17:02:22,410][14061] Env episodes done: 300 / 300  (frame 450300)[0m
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+
+==============================================================================
+  EVALUATION SUMMARY  —  experiment: multiranger_r4.0_topomix_8drones_s0_1B
+==============================================================================
+  Drones / env:      8
+  Env episodes done: 300
+  Total frames:      450300
+  Room dims:         [10.0, 10.0, 10.0]
+  Obst spawn area:   [8.0, 8.0]
+  Obst density/size: 0.2 / 0.6 m
+  Quads mode:        mix
+  Domain random:     False
+  Episode duration:  15.0 s
+------------------------------------------------------------------------------
+  Scenario_o_random/rew_crash                             mean=-0.0029  std=0.0102  n=1080
+  Scenario_o_random/rew_pos                               mean=-8.0565  std=6.9233  n=1080
+  Scenario_o_static_same_goal/rew_crash                   mean=-0.0034  std=0.0111  n=1320
+  Scenario_o_static_same_goal/rew_pos                     mean=-8.1941  std=7.3010  n=1320
+  distance_to_goal_1s                                     mean=0.3720  std=0.7440  n=2400
+  distance_to_goal_3s                                     mean=0.3852  std=0.7637  n=2400
+  distance_to_goal_5s                                     mean=0.4041  std=0.7763  n=2400
+  metric/agent_col_rate                                   mean=0.1487  std=0.1860  n=2400  [paper: 0.030]
+  metric/agent_deadlock_rate                              mean=0.0504  std=0.0778  n=2400
+  metric/agent_neighbor_col_rate                          mean=0.0792  std=0.1747  n=2400
+  metric/agent_obst_col_rate                              mean=0.0821  std=0.1004  n=2400
+  metric/agent_success_rate                               mean=0.8008  std=0.1877  n=2400  [paper: 0.970]
+  num_collisions                                          mean=0.4000  std=0.9381  n=2400
+  num_collisions_after_settle                             mean=0.3933  std=0.9338  n=2400
+  num_collisions_final_5_s                                mean=0.0500  std=0.3175  n=2400
+  num_collisions_obst_quad                                mean=1.1600  std=1.4449  n=2400
+  num_collisions_obst_quad_3_5                            mean=0.3700  std=1.0230  n=2400
+  num_collisions_obst_quad_5                              mean=0.0767  std=0.3328  n=2400
+  num_collisions_obst_quad_after_settle                   mean=0.8733  std=1.2977  n=2400
+  num_collisions_with_ceiling                             mean=0.0000  std=0.0000  n=2400
+  num_collisions_with_floor                               mean=0.5033  std=1.1358  n=2400
+  num_collisions_with_room                                mean=0.4267  std=0.9616  n=2400
+  num_collisions_with_wall                                mean=0.0133  std=0.1147  n=2400
+  o_random/agent_col_rate                                 mean=0.0972  std=0.1039  n=1080
+  o_random/agent_deadlock_rate                            mean=0.0676  std=0.0844  n=1080
+  o_random/agent_neighbor_col_rate                        mean=0.0056  std=0.0369  n=1080
+  o_random/agent_obst_col_rate                            mean=0.0963  std=0.1031  n=1080
+  o_random/agent_success_rate                             mean=0.8352  std=0.1251  n=1080
+  o_random/distance_to_goal_1s                            mean=0.3312  std=0.7746  n=1080
+  o_random/distance_to_goal_3s                            mean=0.3466  std=0.8001  n=1080
+  o_random/distance_to_goal_5s                            mean=0.3655  std=0.8167  n=1080
+  o_random/num_collisions                                 mean=0.0222  std=0.1474  n=1080
+  o_random/num_collisions_final_5_s                       mean=0.0000  std=0.0000  n=1080
+  o_random/num_collisions_obst                            mean=1.3185  std=1.5038  n=1080
+  o_random/num_collisions_obst_quad_3_5                   mean=0.4889  std=1.0945  n=1080
+  o_random/num_collisions_obst_quad_5                     mean=0.1333  std=0.4355  n=1080
+  o_static_same_goal/agent_col_rate                       mean=0.1909  std=0.2238  n=1320
+  o_static_same_goal/agent_deadlock_rate                  mean=0.0364  std=0.0688  n=1320
+  o_static_same_goal/agent_neighbor_col_rate              mean=0.1394  std=0.2151  n=1320
+  o_static_same_goal/agent_obst_col_rate                  mean=0.0705  std=0.0966  n=1320
+  o_static_same_goal/agent_success_rate                   mean=0.7727  std=0.2224  n=1320
+  o_static_same_goal/distance_to_goal_1s                  mean=0.4053  std=0.7163  n=1320
+  o_static_same_goal/distance_to_goal_3s                  mean=0.4167  std=0.7310  n=1320
+  o_static_same_goal/distance_to_goal_5s                  mean=0.4357  std=0.7401  n=1320
+  o_static_same_goal/num_collisions                       mean=0.6970  std=1.1674  n=1320
+  o_static_same_goal/num_collisions_final_5_s             mean=0.0909  std=0.4238  n=1320
+  o_static_same_goal/num_collisions_obst                  mean=1.0303  std=1.3814  n=1320
+  o_static_same_goal/num_collisions_obst_quad_3_5         mean=0.2727  std=0.9494  n=1320
+  o_static_same_goal/num_collisions_obst_quad_5           mean=0.0303  std=0.2037  n=1320
+  rew_action                                              mean=-0.3365  std=0.0139  n=2400
+  rew_crash                                               mean=-0.0032  std=0.0107  n=2400
+  rew_main                                                mean=-8.1321  std=7.1338  n=2400
+  rew_orient                                              mean=7.3687  std=0.1325  n=2400
+  rew_pos                                                 mean=-8.1321  std=7.1338  n=2400
+  rew_proximity                                           mean=0.0000  std=0.0000  n=2400
+  rew_quadcol                                             mean=0.0000  std=0.0000  n=2400
+  rew_quadcol_obstacle                                    mean=0.0000  std=0.0000  n=2400
+  rew_spin                                                mean=-1.2277  std=0.3861  n=2400
+  rewraw_action                                           mean=-6.7301  std=0.2787  n=2400
+  rewraw_crash                                            mean=-0.0032  std=0.0107  n=2400
+  rewraw_main                                             mean=-108.1321  std=365.2684  n=2400
+  rewraw_orient                                           mean=7.3687  std=0.1325  n=2400
+  rewraw_pos                                              mean=-8.1321  std=7.1338  n=2400
+  rewraw_quadcol                                          mean=-0.1000  std=0.3651  n=2400
+  rewraw_quadcol_obstacle                                 mean=-0.1450  std=0.4871  n=2400
+  rewraw_spin                                             mean=-12.2773  std=3.8608  n=2400
+  topology/fallback                                       mean=0.0000  std=0.0000  n=2400
+  topology/retries                                        mean=1.6667  std=1.0339  n=2400
+  topology/retries_cluster                                mean=1.6667  std=1.0339  n=2400
+  z_action0_mean                                          mean=0.1357  std=0.0128  n=2400
+  z_action0_std                                           mean=0.4484  std=0.0073  n=2400
+  z_action1_mean                                          mean=0.1349  std=0.0125  n=2400
+  z_action1_std                                           mean=0.4453  std=0.0080  n=2400
+  z_action2_mean                                          mean=0.1432  std=0.0129  n=2400
+  z_action2_std                                           mean=0.4740  std=0.0083  n=2400
+  z_action3_mean                                          mean=0.1385  std=0.0126  n=2400
+  z_action3_std                                           mean=0.4593  std=0.0081  n=2400
+  z_anneal_quadcol_bin                                    mean=0.0000  std=0.0000  n=2400
+  z_anneal_quadcol_bin_obst                               mean=0.0000  std=0.0000  n=2400
+  z_anneal_quadcol_bin_smooth_max                         mean=0.0000  std=0.0000  n=2400
+  z_approx_total_training_steps                           mean=0.0000  std=0.0000  n=2400
+==============================================================================
+  Avg episode reward (across agents): -2.331
+==============================================================================
+  VERDICT: MID — usable but worse than paper. Investigate before retraining.
+==============================================================================
+  Saved JSON: train_dir/multiranger_r4.0_topomix_8drones_s0_1B/eval_metrics.json
+
+  → train_dir/multiranger_r4.0_topomix_8drones_s0_1B/eval_metrics_topo_cluster.json
+
+================================================================
+  multiranger_r4.0_topomix_8drones_s0_1B  @  topology=building
+================================================================
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[36m[2026-08-30 17:02:24,360][14158] register_encoder_factory: <function make_quadmulti_encoder at 0x7d3da1deeb60>[0m
+[33m[2026-08-30 17:02:24,375][14158] Loading existing experiment configuration from train_dir/multiranger_r4.0_topomix_8drones_s0_1B/config.json[0m
+[36m[2026-08-30 17:02:24,376][14158] Overriding arg 'experiment' with value 'multiranger_r4.0_topomix_8drones_s0_1B' passed from command line[0m
+[36m[2026-08-30 17:02:24,376][14158] Overriding arg 'train_dir' with value 'train_dir' passed from command line[0m
+[36m[2026-08-30 17:02:24,376][14158] Overriding arg 'quads_topology_seed' with value 1234 passed from command line[0m
+[36m[2026-08-30 17:02:24,376][14158] Overriding arg 'quads_obst_topology' with value 'building' passed from command line[0m
+[36m[2026-08-30 17:02:24,376][14158] Overriding arg 'replay_buffer_sample_prob' with value 0.0 passed from command line[0m
+[36m[2026-08-30 17:02:24,376][14158] Overriding arg 'quads_render' with value True passed from command line[0m
+[36m[2026-08-30 17:02:24,376][14158] Adding new argument 'fps'=0 that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'no_render'=True that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'save_video'=False that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'video_name'=None that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'max_num_episodes'=300 that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'push_to_hub'=False that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'hf_repository'=None that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'policy_index'=0 that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'eval_deterministic'=False that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'train_script'=None that is not in the saved config file![0m
+[36m[2026-08-30 17:02:24,377][14158] Adding new argument 'enjoy_script'=None that is not in the saved config file![0m
+/home/michal/miniconda3/envs/swarm-rl/lib/python3.11/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+[33m[2026-08-30 17:02:25,365][14158] Loading state from checkpoint train_dir/multiranger_r4.0_topomix_8drones_s0_1B/checkpoint_p0/checkpoint_000976566_1000003584.pth...[0m
+/home/michal/miniconda3/envs/swarm-rl/lib/python3.11/site-packages/sample_factory/algo/learning/learner.py:281: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint_dict = torch.load(latest_checkpoint, map_location=device)
+[37m[1m[2026-08-30 17:02:25,393][14158] Loaded checkpoint, starting eval: 300 episodes, 8 drones[0m
+[37m[1m[2026-08-30 17:03:05,423][14158] Env episodes done: 5 / 300  (frame 7505)[0m
+[37m[1m[2026-08-30 17:03:36,177][14158] Env episodes done: 10 / 300  (frame 15010)[0m
+/home/michal/Desktop/MSc-thesis/3-Quad-Swarm-RL/quad-swarm-rl/gym_art/quadrotor_multi/topology/generators.py:553: RuntimeWarning: Topology 'building' failed connectivity check after 10 retries. Returning last attempt (may have disconnected free space).
+  warnings.warn(
+[37m[1m[2026-08-30 17:04:05,795][14158] Env episodes done: 15 / 300  (frame 22515)[0m
+[37m[1m[2026-08-30 17:04:35,478][14158] Env episodes done: 20 / 300  (frame 30020)[0m
+[37m[1m[2026-08-30 17:05:05,562][14158] Env episodes done: 25 / 300  (frame 37525)[0m
+[37m[1m[2026-08-30 17:05:35,341][14158] Env episodes done: 30 / 300  (frame 45030)[0m
+[37m[1m[2026-08-30 17:06:05,181][14158] Env episodes done: 35 / 300  (frame 52535)[0m
+[37m[1m[2026-08-30 17:06:34,702][14158] Env episodes done: 40 / 300  (frame 60040)[0m
+[37m[1m[2026-08-30 17:07:04,325][14158] Env episodes done: 45 / 300  (frame 67545)[0m
+[37m[1m[2026-08-30 17:07:34,216][14158] Env episodes done: 50 / 300  (frame 75050)[0m
+[37m[1m[2026-08-30 17:08:04,047][14158] Env episodes done: 55 / 300  (frame 82555)[0m
+[37m[1m[2026-08-30 17:08:33,603][14158] Env episodes done: 60 / 300  (frame 90060)[0m
+[37m[1m[2026-08-30 17:09:03,077][14158] Env episodes done: 65 / 300  (frame 97565)[0m
+[37m[1m[2026-08-30 17:09:32,983][14158] Env episodes done: 70 / 300  (frame 105070)[0m
+[37m[1m[2026-08-30 17:10:01,591][14158] Env episodes done: 75 / 300  (frame 112575)[0m
+[37m[1m[2026-08-30 17:10:30,478][14158] Env episodes done: 80 / 300  (frame 120080)[0m
+[37m[1m[2026-08-30 17:10:59,326][14158] Env episodes done: 85 / 300  (frame 127585)[0m
+[37m[1m[2026-08-30 17:11:27,926][14158] Env episodes done: 90 / 300  (frame 135090)[0m
+[37m[1m[2026-08-30 17:11:56,633][14158] Env episodes done: 95 / 300  (frame 142595)[0m
+[37m[1m[2026-08-30 17:12:25,141][14158] Env episodes done: 100 / 300  (frame 150100)[0m
+[37m[1m[2026-08-30 17:12:54,178][14158] Env episodes done: 105 / 300  (frame 157605)[0m
+[37m[1m[2026-08-30 17:13:23,014][14158] Env episodes done: 110 / 300  (frame 165110)[0m
+[37m[1m[2026-08-30 17:13:51,711][14158] Env episodes done: 115 / 300  (frame 172615)[0m
+[37m[1m[2026-08-30 17:14:20,874][14158] Env episodes done: 120 / 300  (frame 180120)[0m
+[37m[1m[2026-08-30 17:14:49,579][14158] Env episodes done: 125 / 300  (frame 187625)[0m
+[37m[1m[2026-08-30 17:15:18,513][14158] Env episodes done: 130 / 300  (frame 195130)[0m
+[37m[1m[2026-08-30 17:15:47,852][14158] Env episodes done: 135 / 300  (frame 202635)[0m
+[37m[1m[2026-08-30 17:16:16,890][14158] Env episodes done: 140 / 300  (frame 210140)[0m
+[37m[1m[2026-08-30 17:16:45,926][14158] Env episodes done: 145 / 300  (frame 217645)[0m
+[37m[1m[2026-08-30 17:17:15,269][14158] Env episodes done: 150 / 300  (frame 225150)[0m
+[37m[1m[2026-08-30 17:17:44,533][14158] Env episodes done: 155 / 300  (frame 232655)[0m
+[37m[1m[2026-08-30 17:18:14,136][14158] Env episodes done: 160 / 300  (frame 240160)[0m
+[37m[1m[2026-08-30 17:18:43,980][14158] Env episodes done: 165 / 300  (frame 247665)[0m
+[37m[1m[2026-08-30 17:19:13,770][14158] Env episodes done: 170 / 300  (frame 255170)[0m
+[37m[1m[2026-08-30 17:19:43,571][14158] Env episodes done: 175 / 300  (frame 262675)[0m
+[37m[1m[2026-08-30 17:20:13,473][14158] Env episodes done: 180 / 300  (frame 270180)[0m
+[37m[1m[2026-08-30 17:20:42,853][14158] Env episodes done: 185 / 300  (frame 277685)[0m
+[37m[1m[2026-08-30 17:21:12,159][14158] Env episodes done: 190 / 300  (frame 285190)[0m
+[37m[1m[2026-08-30 17:21:41,467][14158] Env episodes done: 195 / 300  (frame 292695)[0m
+[37m[1m[2026-08-30 17:22:10,786][14158] Env episodes done: 200 / 300  (frame 300200)[0m
+[37m[1m[2026-08-30 17:22:40,195][14158] Env episodes done: 205 / 300  (frame 307705)[0m
+[37m[1m[2026-08-30 17:23:09,285][14158] Env episodes done: 210 / 300  (frame 315210)[0m
+[37m[1m[2026-08-30 17:23:39,193][14158] Env episodes done: 215 / 300  (frame 322715)[0m
+[37m[1m[2026-08-30 17:24:08,919][14158] Env episodes done: 220 / 300  (frame 330220)[0m
+[37m[1m[2026-08-30 17:24:38,777][14158] Env episodes done: 225 / 300  (frame 337725)[0m
+[37m[1m[2026-08-30 17:25:08,663][14158] Env episodes done: 230 / 300  (frame 345230)[0m
+[37m[1m[2026-08-30 17:25:38,651][14158] Env episodes done: 235 / 300  (frame 352735)[0m
+[37m[1m[2026-08-30 17:26:08,441][14158] Env episodes done: 240 / 300  (frame 360240)[0m
+[37m[1m[2026-08-30 17:26:38,258][14158] Env episodes done: 245 / 300  (frame 367745)[0m
+[37m[1m[2026-08-30 17:27:07,780][14158] Env episodes done: 250 / 300  (frame 375250)[0m
+[37m[1m[2026-08-30 17:27:37,088][14158] Env episodes done: 255 / 300  (frame 382755)[0m
+[37m[1m[2026-08-30 17:28:06,751][14158] Env episodes done: 260 / 300  (frame 390260)[0m
+[37m[1m[2026-08-30 17:28:35,895][14158] Env episodes done: 265 / 300  (frame 397765)[0m
+[37m[1m[2026-08-30 17:29:05,407][14158] Env episodes done: 270 / 300  (frame 405270)[0m
+[37m[1m[2026-08-30 17:29:34,913][14158] Env episodes done: 275 / 300  (frame 412775)[0m
+[37m[1m[2026-08-30 17:30:04,314][14158] Env episodes done: 280 / 300  (frame 420280)[0m
+[37m[1m[2026-08-30 17:30:33,940][14158] Env episodes done: 285 / 300  (frame 427785)[0m
+[37m[1m[2026-08-30 17:31:03,359][14158] Env episodes done: 290 / 300  (frame 435290)[0m
+[37m[1m[2026-08-30 17:31:33,012][14158] Env episodes done: 295 / 300  (frame 442795)[0m
+[37m[1m[2026-08-30 17:32:02,449][14158] Env episodes done: 300 / 300  (frame 450300)[0m
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+Observation components: ['xyz', 'vxyz', 'R', 'omega', 'floor', 'rxyz', 'rvxyz', 'rxyz', 'rvxyz', 'multiranger']
+
+==============================================================================
+  EVALUATION SUMMARY  —  experiment: multiranger_r4.0_topomix_8drones_s0_1B
+==============================================================================
+  Drones / env:      8
+  Env episodes done: 300
+  Total frames:      450300
+  Room dims:         [10.0, 10.0, 10.0]
+  Obst spawn area:   [8.0, 8.0]
+  Obst density/size: 0.2 / 0.6 m
+  Quads mode:        mix
+  Domain random:     False
+  Episode duration:  15.0 s
+------------------------------------------------------------------------------
+  Scenario_o_random/rew_crash                             mean=-0.0022  std=0.0090  n=1136
+  Scenario_o_random/rew_pos                               mean=-10.4920  std=9.8914  n=1136
+  Scenario_o_static_same_goal/rew_crash                   mean=-0.0023  std=0.0092  n=1264
+  Scenario_o_static_same_goal/rew_pos                     mean=-10.2874  std=9.9721  n=1264
+  distance_to_goal_1s                                     mean=0.9178  std=1.3230  n=2400
+  distance_to_goal_3s                                     mean=0.9265  std=1.3292  n=2400
+  distance_to_goal_5s                                     mean=0.9385  std=1.3345  n=2400
+  metric/agent_col_rate                                   mean=0.1096  std=0.1659  n=2400  [paper: 0.030]
+  metric/agent_deadlock_rate                              mean=0.2217  std=0.1886  n=2400
+  metric/agent_neighbor_col_rate                          mean=0.0567  std=0.1528  n=2400
+  metric/agent_obst_col_rate                              mean=0.0642  std=0.0932  n=2400
+  metric/agent_success_rate                               mean=0.6687  std=0.2141  n=2400  [paper: 0.970]
+  num_collisions                                          mean=0.2967  std=0.8575  n=2400
+  num_collisions_after_settle                             mean=0.2800  std=0.8455  n=2400
+  num_collisions_final_5_s                                mean=0.0500  std=0.3571  n=2400
+  num_collisions_obst_quad                                mean=0.8733  std=1.2127  n=2400
+  num_collisions_obst_quad_3_5                            mean=0.1833  std=0.4930  n=2400
+  num_collisions_obst_quad_5                              mean=0.0433  std=0.2610  n=2400
+  num_collisions_obst_quad_after_settle                   mean=0.6600  std=1.0477  n=2400
+  num_collisions_with_ceiling                             mean=0.0000  std=0.0000  n=2400
+  num_collisions_with_floor                               mean=0.3267  std=0.8832  n=2400
+  num_collisions_with_room                                mean=0.2800  std=0.7314  n=2400
+  num_collisions_with_wall                                mean=0.0167  std=0.1280  n=2400
+  o_random/agent_col_rate                                 mean=0.0546  std=0.0858  n=1136
+  o_random/agent_deadlock_rate                            mean=0.2808  std=0.1775  n=1136
+  o_random/agent_neighbor_col_rate                        mean=0.0000  std=0.0000  n=1136
+  o_random/agent_obst_col_rate                            mean=0.0546  std=0.0858  n=1136
+  o_random/agent_success_rate                             mean=0.6646  std=0.1873  n=1136
+  o_random/distance_to_goal_1s                            mean=0.9798  std=1.4139  n=1136
+  o_random/distance_to_goal_3s                            mean=0.9890  std=1.4213  n=1136
+  o_random/distance_to_goal_5s                            mean=1.0021  std=1.4270  n=1136
+  o_random/num_collisions                                 mean=0.0000  std=0.0000  n=1136
+  o_random/num_collisions_final_5_s                       mean=0.0000  std=0.0000  n=1136
+  o_random/num_collisions_obst                            mean=0.8028  std=1.1211  n=1136
+  o_random/num_collisions_obst_quad_3_5                   mean=0.1549  std=0.4327  n=1136
+  o_random/num_collisions_obst_quad_5                     mean=0.0634  std=0.3188  n=1136
+  o_static_same_goal/agent_col_rate                       mean=0.1590  std=0.2012  n=1264
+  o_static_same_goal/agent_deadlock_rate                  mean=0.1685  std=0.1822  n=1264
+  o_static_same_goal/agent_neighbor_col_rate              mean=0.1076  std=0.1971  n=1264
+  o_static_same_goal/agent_obst_col_rate                  mean=0.0728  std=0.0987  n=1264
+  o_static_same_goal/agent_success_rate                   mean=0.6725  std=0.2356  n=1264
+  o_static_same_goal/distance_to_goal_1s                  mean=0.8621  std=1.2329  n=1264
+  o_static_same_goal/distance_to_goal_3s                  mean=0.8703  std=1.2378  n=1264
+  o_static_same_goal/distance_to_goal_5s                  mean=0.8813  std=1.2429  n=1264
+  o_static_same_goal/num_collisions                       mean=0.5316  std=1.1062  n=1264
+  o_static_same_goal/num_collisions_final_5_s             mean=0.0949  std=0.4877  n=1264
+  o_static_same_goal/num_collisions_obst                  mean=0.9367  std=1.2862  n=1264
+  o_static_same_goal/num_collisions_obst_quad_3_5         mean=0.2089  std=0.5402  n=1264
+  o_static_same_goal/num_collisions_obst_quad_5           mean=0.0253  std=0.1932  n=1264
+  rew_action                                              mean=-0.3313  std=0.0170  n=2400
+  rew_crash                                               mean=-0.0023  std=0.0091  n=2400
+  rew_main                                                mean=-10.3842  std=9.9345  n=2400
+  rew_orient                                              mean=7.3896  std=0.1157  n=2400
+  rew_pos                                                 mean=-10.3842  std=9.9345  n=2400
+  rew_proximity                                           mean=0.0000  std=0.0000  n=2400
+  rew_quadcol                                             mean=0.0000  std=0.0000  n=2400
+  rew_quadcol_obstacle                                    mean=0.0000  std=0.0000  n=2400
+  rew_spin                                                mean=-1.1994  std=0.3090  n=2400
+  rewraw_action                                           mean=-6.6259  std=0.3395  n=2400
+  rewraw_crash                                            mean=-0.0023  std=0.0091  n=2400
+  rewraw_main                                             mean=-84.5509  std=316.3700  n=2400
+  rewraw_orient                                           mean=7.3896  std=0.1157  n=2400
+  rewraw_pos                                              mean=-10.3842  std=9.9345  n=2400
+  rewraw_quadcol                                          mean=-0.0742  std=0.3168  n=2400
+  rewraw_quadcol_obstacle                                 mean=-0.1092  std=0.4069  n=2400
+  rewraw_spin                                             mean=-11.9936  std=3.0897  n=2400
+  topology/fallback                                       mean=0.0033  std=0.0576  n=2400
+  topology/retries                                        mean=2.8167  std=2.1377  n=2400
+  topology/retries_building                               mean=2.8167  std=2.1377  n=2400
+  z_action0_mean                                          mean=0.1299  std=0.0115  n=2400
+  z_action0_std                                           mean=0.4435  std=0.0089  n=2400
+  z_action1_mean                                          mean=0.1289  std=0.0116  n=2400
+  z_action1_std                                           mean=0.4391  std=0.0111  n=2400
+  z_action2_mean                                          mean=0.1370  std=0.0121  n=2400
+  z_action2_std                                           mean=0.4675  std=0.0112  n=2400
+  z_action3_mean                                          mean=0.1326  std=0.0114  n=2400
+  z_action3_std                                           mean=0.4538  std=0.0102  n=2400
+  z_anneal_quadcol_bin                                    mean=0.0000  std=0.0000  n=2400
+  z_anneal_quadcol_bin_obst                               mean=0.0000  std=0.0000  n=2400
+  z_anneal_quadcol_bin_smooth_max                         mean=0.0000  std=0.0000  n=2400
+  z_approx_total_training_steps                           mean=0.0000  std=0.0000  n=2400
+==============================================================================
+  Avg episode reward (across agents): -4.528
+==============================================================================
+  VERDICT: MID — usable but worse than paper. Investigate before retraining.
+==============================================================================
+  Saved JSON: train_dir/multiranger_r4.0_topomix_8drones_s0_1B/eval_metrics.json
+
+  → train_dir/multiranger_r4.0_topomix_8drones_s0_1B/eval_metrics_topo_building.json
+
+================================================================
+  TOPOLOGY EVAL SUMMARY
+================================================================
+Model                                         topology   success    obst_col   n_col_obs 
+-----------------------------------------------------------------------------------------
+multiranger_r4.0_topomix_8drones_s0_1B        grid       0.836      0.061      0.820     
+multiranger_r4.0_topomix_8drones_s0_1B        poisson    0.868      0.054      0.800     
+multiranger_r4.0_topomix_8drones_s0_1B        cluster    0.801      0.082      1.160     
+multiranger_r4.0_topomix_8drones_s0_1B        building   0.669      0.064      0.873     
+================================================================

@@ -54,14 +54,14 @@ DRONE_RADIUS = 0.046
 
 TOPO_LABELS_PL = {
     'grid': 'Siatka regularna',
-    'poisson': 'Rozklad Poissona',
+    'poisson': 'Rozkład Poissona',
     'cluster': 'Klastry gaussowskie',
-    'building': 'Wnetrze budynku (BSP)',
+    'building': 'Wnętrze budynku (BSP)',
     'mix': 'Mix topologii',
 }
 
 MODEL_LABELS_SHORT = {
-    'paper_baseline_8drones_s0': 'Paper baseline (SDF)',
+    'paper_baseline_8drones_s0': 'Model bazowy (SDF)',
     'perception_limited_r1.0_8drones_s0': 'Perception r=1.0',
     'perception_limited_r0.2_8drones_s0': 'Perception r=0.2',
     'multiranger_r4.0_8drones_s0': 'Multiranger',
@@ -407,16 +407,7 @@ def main():
 
     env.close()
 
-    model_label = MODEL_LABELS_SHORT.get(args.model, args.model)
-    topo_label = TOPO_LABELS_PL.get(args.topology, args.topology)
-    fig.suptitle(
-        f'Long-range flight: {model_label} @ {topo_label}\n'
-        f'{n} epizodow (seedy {args.seed_start}..{args.seed_start + n - 1}), '
-        f'obszar {int(BIG_SPAWN_AREA)}x{int(BIG_SPAWN_AREA)}m, '
-        f'dystans START→GOAL {distance:.1f}m',
-        fontsize=12, y=0.995, fontweight='bold',
-    )
-    plt.tight_layout(rect=[0, 0, 1, 0.98])
+    plt.tight_layout()
 
     out_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),

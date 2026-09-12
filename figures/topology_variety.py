@@ -73,11 +73,11 @@ def draw_panel(ax, name, seed, density):
         ))
 
     # Info badge: seed + count + retry count if > 1 (or fallback flag)
-    badge = f"seed={seed} n={len(pos_arr)}"
+    badge = f"ziarno={seed} n={len(pos_arr)}"
     if stats['fallback']:
         badge += " ⚠fallback"
     elif stats['attempts'] > 1:
-        badge += f" (retry x{stats['attempts']})"
+        badge += f" (prób: {stats['attempts']})"
     badge_bg = '#FFEBEE' if stats['fallback'] else 'white'
     ax.text(hx - 0.3, -hy + 0.3, badge,
             fontsize=7, ha='right', va='bottom',
@@ -121,13 +121,7 @@ def main():
         draw_panel(axes[i], args.topology,
                     seed=args.seed_start + i, density=args.density)
 
-    title = TITLES_PL.get(args.topology, args.topology)
-    fig.suptitle(
-        f"{title} — {n} wariantow (seedy {args.seed_start}–{args.seed_start + n - 1}), "
-        f"obszar 8x8m, gestosc {args.density}",
-        fontsize=13, y=0.995, fontweight='bold'
-    )
-    plt.tight_layout(rect=[0, 0, 1, 0.98])
+    plt.tight_layout()
 
     out_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),

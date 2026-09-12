@@ -34,9 +34,9 @@ def _load_metric(train_dir, model, tag_file, metric_key):
 def perception_matrices(train_dir='train_dir'):
     """Return (success 3x3, collision 3x3, row_labels, col_labels)."""
     models = [
-        ('paper_baseline_8drones_s0', 'Paper baseline\n(r=∞)'),
-        ('perception_limited_r1.0_8drones_s0', 'Perception-\nlimited (r=1.0)'),
-        ('perception_limited_r0.2_8drones_s0', 'Perception-\nlimited (r=0.2)'),
+        ('paper_baseline_8drones_s0', 'Model bazowy\n(r=∞)'),
+        ('perception_limited_r1.0_8drones_s0', 'Ograniczona\npercepcja (r=1.0)'),
+        ('perception_limited_r0.2_8drones_s0', 'Ograniczona\npercepcja (r=0.2)'),
     ]
     test_ranges = [
         ('100.0', 'test\nr=∞'),
@@ -60,12 +60,14 @@ def perception_matrices(train_dir='train_dir'):
 
 
 def topology_matrices(train_dir='train_dir'):
-    """Return (success 4x4, collision 4x4, row_labels, col_labels)."""
+    """Return (success 5x4, collision 5x4, row_labels, col_labels)."""
     models = [
-        ('paper_baseline_8drones_s0', 'Paper baseline\n(SDF, r=∞)'),
-        ('perception_limited_r1.0_8drones_s0', 'Perception-\nlimited (SDF r=1.0)'),
-        ('perception_limited_r0.2_8drones_s0', 'Perception-\nlimited (SDF r=0.2)'),
-        ('multiranger_r4.0_8drones_s0', 'Multiranger\n(4 ray-cast)'),
+        ('paper_baseline_8drones_s0', 'Model bazowy\n(SDF, r=∞)'),
+        ('perception_limited_r1.0_8drones_s0', 'Ograniczona percepcja\n(SDF r=1.0)'),
+        ('perception_limited_r0.2_8drones_s0', 'Ograniczona percepcja\n(SDF r=0.2)'),
+        ('multiranger_r4.0_8drones_s0', 'Multi-ranger\n(tylko siatka)'),
+        # Checkpoint 1B (nie 1.5B) — rowny budzet treningowy z pozostalymi 4 modelami.
+        ('multiranger_r4.0_topomix_8drones_s0_1B', 'Multi-ranger\n+ mieszanka topologii'),
     ]
     topologies = [
         ('grid', 'Siatka'),
@@ -143,31 +145,26 @@ def build_perception_figure(train_dir='train_dir'):
 
     draw_heatmap(
         axes[0], succ, row_lbls, col_lbls,
-        title='Success rate (wyzej = lepiej)',
+        title='Skuteczność (wyżej = lepiej)',
         cmap='RdYlGn', vmin=0.4, vmax=1.0,
         fmt='{:.3f}',
-        cbar_label='mean success rate',
+        cbar_label='Średni sukces (dolot bez kolizji)',
         highlight_diagonal=True,
     )
-    axes[0].set_xlabel('Zasieg czujnika przy TESCIE', fontsize=11, labelpad=8)
+    axes[0].set_xlabel('Zasięg czujnika przy TEŚCIE', fontsize=11, labelpad=8)
     axes[0].set_ylabel('Model wytrenowany na:', fontsize=11, labelpad=8)
 
     draw_heatmap(
         axes[1], coll, row_lbls, col_lbls,
-        title='Kolizje z przeszkodami per epizod (nizej = lepiej)',
+        title='Kolizje z przeszkodami / epizod (niżej = lepiej)',
         cmap='Reds', vmin=0.0, vmax=max(4.0, np.nanmax(coll) * 1.05),
         fmt='{:.2f}',
-        cbar_label='mean n_collisions_obst_quad',
+        cbar_label='Kolizje z przeszkodami / epizod (średnia)',
         highlight_diagonal=True,
     )
-    axes[1].set_xlabel('Zasieg czujnika przy TESCIE', fontsize=11, labelpad=8)
+    axes[1].set_xlabel('Zasięg czujnika przy TEŚCIE', fontsize=11, labelpad=8)
     axes[1].set_ylabel('Model wytrenowany na:', fontsize=11, labelpad=8)
 
-    fig.suptitle(
-        'Cross-evaluation percepcji — polityki SDF pod roznymi zasiegami czujnika\n'
-        '(diagonalne komorki = model testowany w swoim rezimie treningowym)',
-        fontsize=13, y=1.02, fontweight='bold'
-    )
     plt.tight_layout()
     out = 'figures/perception_matrix.png'
     plt.savefig(out, dpi=160, bbox_inches='tight', facecolor='white')
@@ -181,31 +178,26 @@ def build_topology_figure(train_dir='train_dir'):
 
     draw_heatmap(
         axes[0], succ, row_lbls, col_lbls,
-        title='Success rate (wyzej = lepiej)',
+        title='Skuteczność (wyżej = lepiej)',
         cmap='RdYlGn', vmin=0.5, vmax=1.0,
         fmt='{:.3f}',
-        cbar_label='mean success rate',
+        cbar_label='Średni sukces (dolot bez kolizji)',
     )
-    axes[0].set_xlabel('Topologia rozmieszczenia przeszkod (TEST)',
+    axes[0].set_xlabel('Topologia rozmieszczenia przeszkód (TEST)',
                        fontsize=11, labelpad=8)
-    axes[0].set_ylabel('Model wytrenowany na siatce (grid)', fontsize=11, labelpad=8)
+    axes[0].set_ylabel('Model', fontsize=11, labelpad=8)
 
     draw_heatmap(
         axes[1], coll, row_lbls, col_lbls,
-        title='Kolizje z przeszkodami per epizod (nizej = lepiej)',
-        cmap='Reds', vmin=0.0, vmax=max(15.0, np.nanmax(coll) * 1.05),
+        title='Kolizje z przeszkodami / epizod (niżej = lepiej)',
+        cmap='Reds', vmin=0.0, vmax=np.nanmax(coll) * 1.05,
         fmt='{:.2f}',
-        cbar_label='mean n_collisions_obst_quad',
+        cbar_label='Kolizje z przeszkodami / epizod (średnia)',
     )
-    axes[1].set_xlabel('Topologia rozmieszczenia przeszkod (TEST)',
+    axes[1].set_xlabel('Topologia rozmieszczenia przeszkód (TEST)',
                        fontsize=11, labelpad=8)
-    axes[1].set_ylabel('Model wytrenowany na siatce (grid)', fontsize=11, labelpad=8)
+    axes[1].set_ylabel('Model', fontsize=11, labelpad=8)
 
-    fig.suptitle(
-        'Cross-evaluation topologii — polityki testowane na 4 rozkladach przestrzennych przeszkod\n'
-        '(wszystkie modele wytrenowane na regularnej siatce)',
-        fontsize=13, y=1.02, fontweight='bold'
-    )
     plt.tight_layout()
     out = 'figures/topology_matrix.png'
     plt.savefig(out, dpi=160, bbox_inches='tight', facecolor='white')
